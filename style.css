@@ -753,20 +753,66 @@ main {
     h1 {
         font-size: 2.5rem;
     }
-    .hero-inner {
-        flex-direction: column;
+    header {
+        position: relative;
+        padding: 5px;
     }
-    .hero-image-wrapper {
-        width: 100%;
+    nav {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px 10px;
+    }
+    .logo-container {
+        position: relative;
+        left: 0;
+        transform: none;
+        order: -1;
+        margin-bottom: 5px;
+    }
+    #nav-logo {
+        height: 65px; 
     }
     .nav-links {
-        display: flex;
+        justify-content: center;
+        width: 100%;
         flex-wrap: wrap;
-        justify-content: flex-end;
+        gap: 8px;
     }
     .nav-btn {
-        padding: 5px 10px;
+        padding: 6px 12px;
         font-size: 0.8rem;
+    }
+    .marquee-container {
+        position: relative;
+        top: 0;
+    }
+    main {
+        padding-top: 20px;
+    }
+    .glass-hero {
+        margin-top: 20px;
+    }
+    .home-main-image {
+        width: 95%;
+        padding: 0;
+    }
+    .section-header h1 {
+        font-size: 2rem;
+    }
+    .info-card {
+        padding: 30px 15px;
+    }
+    
+    #splash-video {
+        object-fit: cover !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        transform: translate(-50%, -50%) !important;
+    }
+    
+    .gate-content, .cart-content {
+        padding: 20px;
+        width: 95%;
     }
 }
 
