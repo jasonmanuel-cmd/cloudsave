@@ -137,8 +137,17 @@ class ParticleSystem {
             if (p.sprite.y > this.app.screen.height + 100) p.sprite.y = -100;
 
             // Optional: Color rotation for "Controlled Chaos"
-            // p.sprite.tint = updateHue(p.sprite.tint, 0.1); 
+            p.sprite.tint = this.updateHue(p.sprite.tint, 0.001); 
         });
+    }
+
+    updateHue(hex, amount) {
+        // Simple hue shift in hex
+        let color = PIXI.Color.shared.setValue(hex);
+        let hsla = color.toHsl();
+        hsla.h = (hsla.h + amount) % 1;
+        color.setValues(hsla);
+        return color.toNumber();
     }
 }
 
@@ -217,6 +226,11 @@ function renderProducts(type) {
                 <span class="product-category">${p.category}</span>
                 <h3 class="product-name">${p.name}</h3>
                 <span class="product-price">$${p.price.toFixed(2)}</span>
+                <div class="fulfillment">
+                    ${p.type === 'cannabis' 
+                        ? '<span class="badge">PICKUP</span> <span class="badge">LOCAL DELIVERY</span>' 
+                        : '<span class="badge">NATIONWIDE DELIVERY</span>'}
+                </div>
             </div>
             <button class="add-to-cart" onclick="addToCart(${p.id})">ADD TO BAG</button>
         </div>

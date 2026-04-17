@@ -269,6 +269,21 @@ h1, h2, h3 {
     color: var(--primary-yellow);
 }
 
+.fulfillment {
+    display: flex;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.badge {
+    font-size: 0.6rem;
+    background: #000;
+    color: var(--pure-white);
+    padding: 3px 8px;
+    border-radius: 5px;
+    font-weight: 700;
+}
+
 .add-to-cart {
     background: var(--cyan);
     color: #000;
