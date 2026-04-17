@@ -3,15 +3,11 @@
     --primary-yellow: #F7FF00;
     --acid-green: #39FF14;
     --cyan: #00FFFF;
-    --ultra-violet: #1A0033;
+    --ultra-violet: #051937; 
     --pure-white: #FFFFFF;
     
     --font-bubbly: 'Fredoka', sans-serif;
-    --font-mono: 'JetBrains Mono', monospace;
-
-    --border-thick: 4px solid #000;
-    --shadow-hard: 8px 8px 0px #000;
-    --shadow-hard-hover: 4px 4px 0px #000;
+    --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 * {
@@ -21,33 +17,42 @@
 }
 
 body {
-    background: var(--ultra-violet);
-    color: #000; /* Dark text on white structural elements */
-    font-family: var(--font-mono);
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #051937 0%, #004d7a 100%);
+    background-attachment: fixed;
+    color: #fff; 
+    font-family: var(--font-body);
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
     min-height: 100vh;
 }
 
-canvas {
+#tsparticles {
     position: fixed;
+    width: 100vw;
+    height: 100vh;
     top: 0;
     left: 0;
-    z-index: -1;
-    pointer-events: none;
+    z-index: -1; 
 }
 
 #app {
     position: relative;
-    z-index: 1;
+    z-index: 10;
 }
 
-/* Neo-Brutalism / Superflat Foundation */
+/* Glassmorphism / Professional Touch */
 .glass {
-    /* Replacing actual glass with solid white panels for clean, professional contrast against chaotic background */
-    background: var(--pure-white);
-    border: var(--border-thick);
+    background: rgba(255, 255, 255, 0.08); 
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 16px;
-    box-shadow: var(--shadow-hard);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    color: #fff;
 }
 
 /* Navigation */
@@ -97,11 +102,12 @@ nav {
 
 .nav-btn {
     background: transparent;
-    border: 2px solid transparent;
-    color: #000;
-    font-family: var(--font-mono);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff;
+    font-family: var(--font-body);
     font-size: 0.9rem;
-    font-weight: 700;
+    font-weight: bold;
+    letter-spacing: 0.1em;
     cursor: pointer;
     padding: 8px 16px;
     transition: all 0.2s ease;
@@ -109,8 +115,8 @@ nav {
 }
 
 .nav-btn:hover, .nav-btn.active {
-    background: var(--primary-yellow);
-    border: 2px solid #000;
+    background: rgba(255,255,255,0.2);
+    border-color: #fff;
 }
 
 /* Main Content */
@@ -160,11 +166,12 @@ main {
 
 .home-main-image {
     max-width: 100%;
-    width: 800px;
+    width: 900px;
     height: auto;
-    border: var(--border-thick);
-    box-shadow: var(--shadow-hard);
+    object-fit: contain;
     border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 20px;
 }
 
 /* Info Triple Grid */
@@ -257,10 +264,11 @@ main {
 .warning-bar {
     text-align: center;
     padding: 15px;
-    font-weight: bold;
+    font-weight: 300;
     font-size: 1rem;
+    letter-spacing: 0.1em;
     margin: 20px 0;
-    background: var(--ultra-violet);
+    background: rgba(5, 25, 55, 0.8);
     color: #fff;
 }
 
@@ -274,22 +282,22 @@ main {
 }
 
 .pill-btn {
-    border: 3px solid #000;
-    background: var(--pure-white);
-    color: #000;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.05);
+    color: #fff;
     padding: 10px 25px;
     border-radius: 30px;
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
     font-weight: bold;
     cursor: pointer;
-    box-shadow: 4px 4px 0px #000;
+    box-shadow: none;
     transition: all 0.2s ease;
 }
 
 .pill-btn.active, .pill-btn:hover {
-    background: var(--acid-green);
-    transform: translate(2px, 2px);
-    box-shadow: 2px 2px 0px #000;
+    background: #fff;
+    color: #000;
+    transform: translateY(-2px);
 }
 
 .section-header {
@@ -299,6 +307,7 @@ main {
     padding: 20px;
     margin: 0 20px 30px;
     border-top: none;
+    background: rgba(0,0,0,0.2);
 }
 
 .section-icon {
@@ -310,32 +319,34 @@ main {
     margin: 0;
     text-shadow: none;
     -webkit-text-stroke: 0px;
-    color: #000;
+    color: #fff;
+    font-weight: 300;
+    letter-spacing: 0.1em;
 }
 
 .cta-btn {
     background: var(--acid-green);
     color: #000;
-    border: var(--border-thick);
+    border: none;
     padding: 15px 40px;
-    font-family: var(--font-bubbly);
-    font-size: 1.5rem;
-    font-weight: 700;
+    font-family: var(--font-body);
+    font-size: 1.2rem;
+    font-weight: bold;
+    letter-spacing: 0.1em;
     cursor: pointer;
-    transition: all 0.1s ease;
-    border-radius: 12px;
-    box-shadow: var(--shadow-hard);
+    transition: all 0.2s ease;
+    border-radius: 30px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
 .cta-btn:hover {
     background: var(--primary-yellow);
-    transform: translate(2px, 2px);
-    box-shadow: 6px 6px 0px #000;
+    transform: translateY(-2px);
+    box-shadow: 0 15px 25px rgba(0,0,0,0.4);
 }
 
 .cta-btn:active {
-    transform: translate(8px, 8px);
-    box-shadow: 0px 0px 0px #000;
+    transform: translateY(2px);
 }
 
 /* Store Grid */
@@ -347,30 +358,26 @@ main {
 }
 
 .product-card {
-    background: var(--pure-white);
-    border: var(--border-thick);
-    border-radius: 16px;
     padding: 20px;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
     gap: 15px;
-    box-shadow: var(--shadow-hard);
     position: relative;
     top: 0;
 }
 
 .product-card:hover {
-    transform: translate(-4px, -4px);
-    box-shadow: 12px 12px 0px #000;
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
 }
 
 .product-img-wrapper {
     width: 100%;
     aspect-ratio: 1;
-    background: #f4f4f4; /* Slightly off-white to contrast with images that might have white backgrounds */
+    background: rgba(255,255,255,0.05); 
     border-radius: 8px;
-    border: 2px solid #000;
+    border: none;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -407,16 +414,18 @@ main {
 }
 
 .product-name {
-    font-family: var(--font-bubbly);
-    font-size: 1.4rem;
-    color: #000;
+    font-family: var(--font-body);
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
     line-height: 1.2;
+    letter-spacing: 0.05em;
 }
 
 .product-price {
     font-size: 1.4rem;
-    font-weight: 700;
-    color: #000;
+    font-weight: 300;
+    color: #fff;
     margin-top: 5px;
 }
 
@@ -438,29 +447,28 @@ main {
 }
 
 .add-to-cart {
-    background: var(--cyan);
-    color: #000;
-    border: 3px solid #000;
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.2);
     padding: 12px;
-    border-radius: 8px;
-    font-family: var(--font-bubbly);
-    font-size: 1.1rem;
-    font-weight: 700;
+    border-radius: 30px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: bold;
+    letter-spacing: 0.1em;
     cursor: pointer;
     margin-top: auto;
-    transition: all 0.1s ease;
-    box-shadow: 4px 4px 0px #000;
+    transition: all 0.2s ease;
 }
 
 .add-to-cart:hover {
-    background: var(--acid-green);
-    transform: translate(2px, 2px);
-    box-shadow: 2px 2px 0px #000;
+    background: #fff;
+    color: #000;
+    transform: translateY(-2px);
 }
 
 .add-to-cart:active {
-    transform: translate(4px, 4px);
-    box-shadow: 0px 0px 0px #000;
+    transform: translateY(2px);
 }
 
 /* Age Gate & Overlays */

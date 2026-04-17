@@ -32,132 +32,67 @@ const productData = {
 };
 
 // --- BACKGROUND ENGINE (The Clouds) ---
-class ParticleSystem {
-    constructor() {
-        this.app = new PIXI.Application();
-        this.particles = [];
-        this.mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-        this.init();
-    }
-
-    async init() {
-        await this.app.init({
-            width: window.innerWidth,
-            height: window.innerHeight,
-            backgroundAlpha: 0,
-            antialias: true
-        });
-
-        document.getElementById('bg-canvas').replaceWith(this.app.canvas);
-        this.app.canvas.id = 'bg-canvas';
-
-        // Create Murakami Flower Texture using Graphics
-        const graphics = new PIXI.Graphics();
-        
-        // Petals
-        const numPetals = 12;
-        graphics.beginFill(0xFF007F); // Bright pink
-        for (let i = 0; i < numPetals; i++) {
-            const angle = (i / numPetals) * Math.PI * 2;
-            graphics.drawCircle(Math.cos(angle) * 18, Math.sin(angle) * 18, 10);
-        }
-        graphics.endFill();
-        
-        // Face
-        graphics.beginFill(0xF7FF00); // Bright yellow
-        graphics.drawCircle(0, 0, 16);
-        graphics.endFill();
-        
-        // Eyes
-        graphics.beginFill(0x000000);
-        graphics.drawCircle(-5, -4, 2.5);
-        graphics.drawCircle(5, -4, 2.5);
-        graphics.endFill();
-        
-        // Smile
-        graphics.lineStyle(2, 0x000000);
-        graphics.arc(0, 0, 8, 0.2, Math.PI - 0.2);
-
-        const flowerTexture = this.app.renderer.generateTexture(graphics);
-
-        // Layers for parallax
-        this.layers = [
-            new PIXI.Container(),
-            new PIXI.Container(),
-            new PIXI.Container()
-        ];
-        
-        this.layers.forEach((layer, i) => {
-            const blurFilter = new PIXI.BlurFilter();
-            blurFilter.blur = i === 0 ? 0 : (i === 1 ? 4 : 10);
-            layer.filters = [blurFilter];
-            this.app.stage.addChild(layer);
-        });
-
-        for (let i = 0; i < 40; i++) {
-            const size = Math.random();
-            let layerIdx = 0;
-            if (size < 0.3) layerIdx = 2;
-            else if (size < 0.6) layerIdx = 1;
-
-            const p = new PIXI.Sprite(flowerTexture);
-            p.anchor.set(0.5);
-            p.scale.set(size * 1.5 + 0.5);
-            p.x = Math.random() * window.innerWidth;
-            p.y = Math.random() * window.innerHeight;
-            
-            p.vx = (Math.random() - 0.5) * (3 - layerIdx);
-            p.vy = (Math.random() - 0.5) * (3 - layerIdx);
-            p.baseScale = p.scale.x;
-            p.layerIdx = layerIdx;
-            
-            this.layers[layerIdx].addChild(p);
-            this.particles.push(p);
-        }
-
-        window.addEventListener('mousemove', (e) => {
-            this.mouse.x = e.clientX;
-            this.mouse.y = e.clientY;
-        });
-
-        window.addEventListener('resize', () => {
-            this.app.renderer.resize(window.innerWidth, window.innerHeight);
-        });
-
-        this.app.ticker.add(() => this.animate());
-    }
-
-    animate() {
-        this.particles.forEach(p => {
-            p.x += p.vx;
-            p.y += p.vy;
-            p.rotation += (p.vx > 0 ? 0.01 : -0.01); // Slowly spin
-
-            // Bounce
-            if (p.x < 0 || p.x > window.innerWidth) p.vx *= -1;
-            if (p.y < 0 || p.y > window.innerHeight) p.vy *= -1;
-
-            // Mouse repulsion (stronger on foreground)
-            const dx = this.mouse.x - p.x;
-            const dy = this.mouse.y - p.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-
-            if (dist < 200 && p.layerIdx === 0) {
-                const angle = Math.atan2(dy, dx);
-                const push = (200 - dist) * 0.02;
-                p.vx -= Math.cos(angle) * push;
-                p.vy -= Math.sin(angle) * push;
+function startParticles() {
+    tsParticles.load("tsparticles", {
+        fpsLimit: 60,
+        interactivity: {
+            events: {
+                onClick: { enable: true, mode: "push" }, // Click to add a flower
+                onHover: { 
+                    enable: true, 
+                    mode: "repulse" // Flowers float away from mouse
+                },
+                resize: true,
+            },
+            modes: {
+                push: { quantity: 1 },
+                repulse: { distance: 100, duration: 0.4 },
+            },
+        },
+        particles: {
+            shape: {
+                type: "image",
+                image: [
+                    { src: "https://i.imgur.com/8Qh1X6w.png", width: 100, height: 100 },
+                    { src: "https://i.imgur.com/7SjL7sY.png", width: 100, height: 100 },
+                    { src: "https://i.imgur.com/z6bV5R2.png", width: 100, height: 100 }
+                ]
+            },
+            color: { value: "#ffffff" },
+            move: {
+                enable: true,
+                direction: "none",
+                outModes: { default: "out" }, 
+                random: true,
+                speed: 1, 
+                straight: false,
+            },
+            number: {
+                density: { enable: true, area: 800 },
+                value: 20, 
+            },
+            opacity: {
+                value: { min: 0.2, max: 0.8 }, 
+                animation: {
+                    enable: true,
+                    speed: 0.5,
+                    sync: false
+                }
+            },
+            size: {
+                value: { min: 8, max: 25 }, 
+            },
+            rotate: { 
+                value: { min: 0, max: 360 },
+                animation: {
+                    enable: true,
+                    speed: 2,
+                    sync: false
+                }
             }
-
-            // Friction
-            p.vx *= 0.99;
-            p.vy *= 0.99;
-            
-            // Min speed
-            if(Math.abs(p.vx) < 0.5) p.vx += p.vx > 0 ? 0.1 : -0.1;
-            if(Math.abs(p.vy) < 0.5) p.vy += p.vy > 0 ? 0.1 : -0.1;
-        });
-    }
+        },
+        detectRetina: true,
+    });
 }
 
 // --- STORE UI LOGIC ---
@@ -298,7 +233,7 @@ function initStore() {
         document.getElementById('app').classList.remove('hidden');
         
         // Start background visual only when entered for performance
-        new ParticleSystem();
+        startParticles();
     });
 
     // Cart events

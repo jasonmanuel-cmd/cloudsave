@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="/style.css">
 </head>
 <body class="loading">
-    <canvas id="bg-canvas"></canvas>
+    <div id="tsparticles"></div>
     
     <div id="splash-screen" class="splash-screen">
         <video id="splash-video" src="/splash.mp4" autoplay muted loop playsinline></video>
@@ -38,10 +38,9 @@
         </header>
 
         <main>
-            <!-- Home Page -->
-            <section id="hero" class="tab-content active">
-                <div class="home-hero">
-                    <img src="/hero.png" alt="Cloud Ave Hero" class="home-main-image">
+            <section id="hero" class="tab-content active hero-wrap">
+                <div class="glass-hero">
+                    <img src="/hero.png" alt="Cloud Ave Hero" class="home-main-image text-center">
                 </div>
                 <div class="section-title">
                     <h2>THE COLLECTION</h2>
@@ -163,6 +162,7 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.10.1/tsparticles.bundle.min.js"></script>
     <script type="module" src="/main.js"></script>
 </body>
 </html>
