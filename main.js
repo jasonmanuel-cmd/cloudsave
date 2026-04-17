@@ -136,7 +136,7 @@ function renderProducts(type, category = 'all') {
     container.querySelectorAll('.add-to-cart').forEach(btn => {
         btn.addEventListener('click', (e) => {
             if(btn.classList.contains('call-btn')) {
-                window.location.href = "tel:6615011881";
+                window.location.href = "/contact.html";
                 return;
             }
             const id = parseInt(e.target.dataset.id);
