@@ -150,6 +150,12 @@ function renderProducts(type, category = 'all') {
             );
         });
     });
+
+    // Staggered animate-in for product cards when rendering
+    gsap.fromTo(container.querySelectorAll('.product-card'),
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.5, stagger: 0.05, ease: "back.out(1.2)", clearProps: "all" }
+    );
 }
 
 function renderTopSellers() {
@@ -199,6 +205,14 @@ function initStore() {
             switchTab(target);
         });
     });
+
+    // Logo returns home
+    const navLogo = document.getElementById('nav-logo');
+    if (navLogo) {
+        navLogo.addEventListener('click', () => {
+            switchTab('hero');
+        });
+    }
 
     // Pill Category filtering
     document.querySelectorAll('.pill-btn').forEach(btn => {
