@@ -180,6 +180,7 @@ main {
     justify-content: center;
     align-items: center;
     width: 100%;
+    margin-top: 60px; /* offset the marquee */
     margin-bottom: 40px;
 }
 
@@ -193,6 +194,13 @@ main {
     box-shadow: var(--shadow-hard);
     padding: 0;
     background: var(--pure-white);
+    animation: floating-hero 4s ease-in-out infinite;
+}
+
+@keyframes floating-hero {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(1deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
 }
 
 /* Info Triple Grid */
@@ -693,8 +701,8 @@ main {
     left: 50%;
     width: 100vw;
     height: 100vh;
-    object-fit: contain; /* Prevents the massive 'cover' zoom effect */
-    transform: translate(-50%, -50%) scale(1.15); /* Slight zoom to hide thin black bars */
+    object-fit: fill; 
+    transform: translate(-50%, -50%) scaleX(1.4) scaleY(1.15); 
     pointer-events: none;
     opacity: 0.8; /* Slight fade for text readability */
 }
@@ -802,4 +810,40 @@ main {
     border-color: #000;
     transform: translateY(-2px);
     box-shadow: 2px 2px 0px #000;
+}
+
+/* Marquee Scrolling Text */
+.marquee-container {
+    position: fixed;
+    top: 90px; /* Right below the header */
+    left: 0;
+    width: 100vw;
+    background: var(--primary-pink);
+    color: var(--pure-white);
+    padding: 10px 0;
+    border-top: var(--border-thick);
+    border-bottom: var(--border-thick);
+    overflow: hidden;
+    z-index: 98;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+.marquee-track {
+    display: inline-flex;
+    white-space: nowrap;
+    animation: scroll-marquee 20s linear infinite;
+    font-family: var(--font-bubbly);
+    font-size: 1.2rem;
+    font-weight: bold;
+    letter-spacing: 0.1rem;
+    text-shadow: 1px 1px 0 #000;
+}
+
+.marquee-track span {
+    padding: 0 20px;
+}
+
+@keyframes scroll-marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
 }
