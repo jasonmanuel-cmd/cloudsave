@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Ave | Bakersfield's Premium Dispensary</title>
+    <meta name="description" content="Welcome to Cloud Ave, Bakersfield's premier dispensary. Shop high-quality cannabis, apparel, and accessories. Neo-Pop vibes and premium products.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="loading">
+    <canvas id="bg-canvas"></canvas>
+    
+    <div id="app">
+        <header>
+            <nav class="glass">
+                <div class="logo-container">
+                    <img src="/logo1.png" alt="Cloud Ave Logo" id="nav-logo">
+                    <span class="logo-text">CLOUD AVE</span>
+                </div>
+                <div class="nav-links">
+                    <button class="nav-btn active" data-tab="lifestyle">LIFESTYLE</button>
+                    <button class="nav-btn" data-tab="cannabis">CANNABIS</button>
+                    <button class="nav-btn" data-tab="cart">CART (0)</button>
+                </div>
+            </nav>
+        </header>
+
+        <main>
+            <!-- Hero Section -->
+            <section id="hero" class="tab-content active">
+                <div class="hero-inner">
+                    <div class="hero-image-wrapper">
+                        <img src="/hero.png" alt="Cloud Ave Hero" class="hero-main-img">
+                    </div>
+                    <div class="hero-text glass">
+                        <h1>TRANSCEND THE ORDINARY</h1>
+                        <p>Bakersfield's premium destination for high-energy euphoria and coordinated joy.</p>
+                        <button class="cta-btn bloom-effect">SHOP NOW</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Store Section (Lifestyle) -->
+            <section id="lifestyle" class="store-grid tab-content">
+                <!-- Items will be injected here -->
+            </section>
+
+            <!-- Cannabis Section (Restricted) -->
+            <section id="cannabis" class="store-grid tab-content">
+                <!-- Items will be injected here -->
+            </section>
+        </main>
+
+        <div id="age-gate" class="overlay hidden">
+            <div class="gate-content glass">
+                <img src="/logo1.png" alt="Cloud Ave Logo" class="gate-logo">
+                <h2>HOLD UP!</h2>
+                <p>You must be 21 or older to enter the Cannabis clouds.</p>
+                <div class="gate-actions">
+                    <button id="age-confirm" class="gate-btn primary">I AM 21+</button>
+                    <button id="age-deny" class="gate-btn secondary">EXIT</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="cart-drawer" class="overlay hidden">
+            <div class="cart-content glass">
+                <div class="cart-header">
+                    <h2>YOUR BAG</h2>
+                    <button id="close-cart">✕</button>
+                </div>
+                <div id="cart-items">
+                    <!-- Cart items here -->
+                </div>
+                <div class="cart-footer">
+                    <div id="cart-total">TOTAL: $0.00</div>
+                    <button id="checkout-btn" class="cta-btn">CHECKOUT</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/main.js"></script>
+</body>
+</html>
