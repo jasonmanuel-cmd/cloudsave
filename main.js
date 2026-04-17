@@ -24,14 +24,14 @@ const state = {
         { id: 14, name: 'ONE HITTER', type: 'lifestyle', price: 9.99, img: '/images/store/ca-one-hitter.png', category: 'Accessory' },
         { id: 21, name: 'HARD CASE', type: 'lifestyle', price: 15.99, img: '/images/store/ca-case.png', category: 'Accessory' },
         
-        // Cannabis Items
-        { id: 101, name: 'PREMIUM FLOWER', type: 'cannabis', price: 45.00, img: '/images/store/ca-menu-flower.png', category: 'Flower' },
-        { id: 102, name: 'DISPOSABLE PEN', type: 'cannabis', price: 35.00, img: '/images/store/ca-menu-disposable.png', category: 'Vape' },
-        { id: 103, name: 'LIVE RESIN WAX', type: 'cannabis', price: 40.00, img: '/images/store/ca-menu-wax.png', category: 'Extract' },
-        { id: 104, name: 'GUMMY EDIBLES', type: 'cannabis', price: 25.00, img: '/images/store/ca-menu-edibles.png', category: 'Edible' },
-        { id: 105, name: '510 BATTERY A', type: 'cannabis', price: 20.00, img: '/images/store/ca-battery-510-a.png', category: 'Hardware' },
-        { id: 106, name: '510 BATTERY B', type: 'cannabis', price: 20.00, img: '/images/store/ca-battery-510-b.png', category: 'Hardware' },
-        { id: 107, name: 'C.A. VAPE PEN', type: 'cannabis', price: 30.00, img: '/images/store/ca-wax-pen.png', category: 'Vape' },
+        // Vault Items
+        { id: 101, name: 'PREMIUM FLOWER', type: 'vault', price: 45.00, img: '/images/store/ca-menu-flower.png', category: 'Flower' },
+        { id: 102, name: 'DISPOSABLE PEN', type: 'vault', price: 35.00, img: '/images/store/ca-menu-disposable.png', category: 'Vape' },
+        { id: 103, name: 'LIVE RESIN WAX', type: 'vault', price: 40.00, img: '/images/store/ca-menu-wax.png', category: 'Extract' },
+        { id: 104, name: 'GUMMY EDIBLES', type: 'vault', price: 25.00, img: '/images/store/ca-menu-edibles.png', category: 'Edible' },
+        { id: 105, name: '510 BATTERY A', type: 'vault', price: 20.00, img: '/images/store/ca-battery-510-a.png', category: 'Hardware' },
+        { id: 106, name: '510 BATTERY B', type: 'vault', price: 20.00, img: '/images/store/ca-battery-510-b.png', category: 'Hardware' },
+        { id: 107, name: 'C.A. VAPE PEN', type: 'vault', price: 30.00, img: '/images/store/ca-wax-pen.png', category: 'Vape' },
     ]
 };
 
@@ -154,19 +154,26 @@ class ParticleSystem {
 // --- STORE UI LOGIC ---
 function initStore() {
     renderProducts('lifestyle');
-    renderProducts('cannabis');
+    renderProducts('vault');
     
     // Tab switching
     document.querySelectorAll('.nav-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             const target = btn.dataset.tab;
+            if (!target) return; // Prevent breaking on external links like IG
+            
             if (target === 'cart') {
                 toggleCart(true);
                 return;
             }
             
-            if (target === 'cannabis' && !state.isAgeVerified) {
+            if (target === 'vault' && !state.isAgeVerified) {
                 showAgeGate();
+                return;
+            }
+            
+            if (target === 'hero') {
+                switchTab('hero');
                 return;
             }
             
@@ -183,11 +190,20 @@ function initStore() {
     document.getElementById('age-confirm').addEventListener('click', () => {
         state.isAgeVerified = true;
         hideAgeGate();
-        switchTab('cannabis');
+        switchTab('vault');
     });
 
     document.getElementById('age-deny').addEventListener('click', () => {
         window.location.href = 'https://google.com';
+    });
+
+    // Slash Screen Entry
+    document.getElementById('enter-site-btn').addEventListener('click', () => {
+        document.getElementById('splash-screen').classList.add('hidden');
+        document.getElementById('app').classList.remove('hidden');
+        
+        // Start background visual only when entered for performance
+        new ParticleSystem();
     });
 
     // Cart events
@@ -227,7 +243,7 @@ function renderProducts(type) {
                 <h3 class="product-name">${p.name}</h3>
                 <span class="product-price">$${p.price.toFixed(2)}</span>
                 <div class="fulfillment">
-                    ${p.type === 'cannabis' 
+                    ${p.type === 'vault' 
                         ? '<span class="badge">PICKUP</span> <span class="badge">LOCAL DELIVERY</span>' 
                         : '<span class="badge">NATIONWIDE DELIVERY</span>'}
                 </div>
@@ -277,13 +293,13 @@ function updateCart() {
     cartTotal.innerText = `TOTAL: $${total.toFixed(2)}`;
     
     cartItems.innerHTML = state.cart.map((p, index) => `
-        <div class="cart-item glass" style="display:flex; gap:15px; padding:10px; margin-bottom:10px; border-radius:10px;">
-            <img src="${p.img}" style="width:60px; background:#fff; border-radius:5px;">
-            <div style="flex:1">
-                <h4 style="font-size:0.9rem">${p.name}</h4>
-                <p>$${p.price.toFixed(2)}</p>
+        <div class="cart-item" style="display:flex; gap:15px; padding:15px; margin-bottom:15px; border-radius:12px; align-items:center;">
+            <img src="${p.img}" style="width:70px; background:#f4f4f4; border: 2px solid #000; border-radius:8px;">
+            <div style="flex:1; text-align:left;">
+                <h4 style="font-size:1rem; font-family:var(--font-bubbly); color:#000;">${p.name}</h4>
+                <p style="font-weight:700; color:var(--primary-pink); font-size:1.1rem;">$${p.price.toFixed(2)}</p>
             </div>
-            <button onclick="removeFromCart(${index})" style="background:none; border:none; color:#ff4444; cursor:pointer;">✕</button>
+            <button onclick="removeFromCart(${index})" style="background:var(--primary-yellow); border:3px solid #000; border-radius:50%; width:30px; height:30px; font-weight:bold; color:#000; cursor:pointer; box-shadow:2px 2px 0 #000;">✕</button>
         </div>
     `).join('');
 }
@@ -294,7 +310,6 @@ window.removeFromCart = (index) => {
 };
 
 // Initialize
-new ParticleSystem();
 initStore();
 
 // Psychologically driven: occasional "bloom" of flowers

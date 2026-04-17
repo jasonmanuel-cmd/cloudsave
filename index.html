@@ -13,7 +13,14 @@
 <body class="loading">
     <canvas id="bg-canvas"></canvas>
     
-    <div id="app">
+    <div id="splash-screen" class="splash-screen">
+        <video id="splash-video" src="/splash.mp4" autoplay muted loop playsinline></video>
+        <div class="splash-content">
+            <button id="enter-site-btn" class="cta-btn splash-cta">ENTER CLOUDS</button>
+        </div>
+    </div>
+    
+    <div id="app" class="hidden">
         <header>
             <nav class="glass">
                 <div class="logo-container">
@@ -21,9 +28,11 @@
                     <span class="logo-text">CLOUD AVE</span>
                 </div>
                 <div class="nav-links">
-                    <button class="nav-btn active" data-tab="lifestyle">LIFESTYLE</button>
-                    <button class="nav-btn" data-tab="cannabis">CANNABIS</button>
-                    <button class="nav-btn" data-tab="cart">CART (0)</button>
+                    <button class="nav-btn active" data-tab="hero">HOME</button>
+                    <button class="nav-btn" data-tab="lifestyle">LIFESTYLE</button>
+                    <button class="nav-btn" data-tab="vault">THE VAULT</button>
+                    <a href="https://www.instagram.com/clouds.backupp/" target="_blank" class="nav-btn social-link">IG</a>
+                    <button class="nav-btn" data-tab="cart">CART (<span id="cart-count">0</span>)</button>
                 </div>
             </nav>
         </header>
@@ -48,8 +57,8 @@
                 <!-- Items will be injected here -->
             </section>
 
-            <!-- Cannabis Section (Restricted) -->
-            <section id="cannabis" class="store-grid tab-content">
+            <!-- Vault Section (Restricted) -->
+            <section id="vault" class="store-grid tab-content">
                 <!-- Items will be injected here -->
             </section>
         </main>
@@ -58,7 +67,7 @@
             <div class="gate-content glass">
                 <img src="/logo1.png" alt="Cloud Ave Logo" class="gate-logo">
                 <h2>HOLD UP!</h2>
-                <p>You must be 21 or older to enter the Cannabis clouds.</p>
+                <p>You must be 21 or older to enter The Vault.</p>
                 <div class="gate-actions">
                     <button id="age-confirm" class="gate-btn primary">I AM 21+</button>
                     <button id="age-deny" class="gate-btn secondary">EXIT</button>
