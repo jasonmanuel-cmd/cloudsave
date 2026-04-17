@@ -23,14 +23,14 @@
     <div id="app" class="hidden">
         <header>
             <nav class="glass">
-                <div class="logo-container">
-                    <img src="/logo1.png" alt="Cloud Ave Logo" id="nav-logo">
-                    <span class="logo-text">CLOUD AVE</span>
-                </div>
                 <div class="nav-links">
-                    <button class="nav-btn active" data-tab="hero">HOME</button>
                     <button class="nav-btn" data-tab="lifestyle">LIFESTYLE</button>
                     <button class="nav-btn" data-tab="vault">THE VAULT</button>
+                </div>
+                <div class="logo-container" style="cursor: pointer;" class="nav-btn active" data-tab="hero">
+                    <img src="/logo1.png" alt="Cloud Ave Logo" id="nav-logo">
+                </div>
+                <div class="nav-links">
                     <a href="https://www.instagram.com/clouds.backupp/" target="_blank" class="nav-btn social-link">IG</a>
                     <button class="nav-btn" data-tab="cart">CART (<span id="cart-count">0</span>)</button>
                 </div>
@@ -38,28 +38,99 @@
         </header>
 
         <main>
-            <!-- Hero Section -->
+            <!-- Home Page -->
             <section id="hero" class="tab-content active">
-                <div class="hero-inner">
-                    <div class="hero-image-wrapper">
-                        <img src="/hero.png" alt="Cloud Ave Hero" class="hero-main-img">
+                <div class="home-hero">
+                    <img src="/hero.png" alt="Cloud Ave Hero" class="home-main-image">
+                </div>
+                <div class="section-title">
+                    <h2>THE COLLECTION</h2>
+                    <p>BAKERSFIELD BORN. CLEAR FULFILLMENT. REAL INVENTORY.</p>
+                </div>
+                
+                <!-- Top Sellers -->
+                <div class="top-sellers store-grid" id="top-sellers-grid">
+                    <!-- JS will inject best sellers here (limit 3) -->
+                </div>
+                
+                <div class="info-triple-grid">
+                    <div class="info-card glass">
+                        <div class="icon">📈</div>
+                        <h3>ALL ON DA MUSCLE</h3>
+                        <p>Bakersfield-born and bred with zero outside investors. Cloud Ave is built on pure hustle and unwavering self-belief.</p>
                     </div>
-                    <div class="hero-text glass">
-                        <h1>TRANSCEND THE ORDINARY</h1>
-                        <p>Bakersfield's premium destination for high-energy euphoria and coordinated joy.</p>
-                        <button class="cta-btn bloom-effect">SHOP NOW</button>
+                    <div class="info-card glass">
+                        <div class="icon">🏆</div>
+                        <h3>CULTURE & COMMUNITY</h3>
+                        <p>The brand is rooted in Bakersfield culture, direct customer relationships, and a storefront experience that feels personal.</p>
                     </div>
+                    <div class="info-card glass">
+                        <div class="icon">👥</div>
+                        <h3>NATIONWIDE & LOCAL</h3>
+                        <p>Premium apparel ships nationwide. The 21+ local menu stays limited to Bakersfield pickup and delivery.</p>
+                    </div>
+                </div>
+
+                <div class="big-status-grid">
+                    <div class="status-box glass">
+                        <div class="icon">🎯</div>
+                        <h2>LOCAL</h2>
+                        <p>BAKERSFIELD PICKUP + DELIVERY</p>
+                    </div>
+                    <div class="status-box glass">
+                        <div class="icon">🚚</div>
+                        <h2>US-WIDE</h2>
+                        <p>APPAREL + ACCESSORIES SHIPPING</p>
+                    </div>
+                    <div class="status-box glass">
+                        <div class="icon">⚡</div>
+                        <h2>READY</h2>
+                        <p>REAL INVENTORY WITH CLEAR FULFILLMENT</p>
+                    </div>
+                </div>
+
+                <div class="cultivated-section glass">
+                    <h2>CULTIVATED IN THE VALLEY</h2>
+                    <p>Cloud Ave was built in Bakersfield as a cannabis business first, with apparel added as an extension of the brand. The local menu stays rooted in the city, the clothing carries the same identity nationwide, and both sides of the business are meant to feel direct, clean, and real.</p>
                 </div>
             </section>
 
             <!-- Store Section (Lifestyle) -->
-            <section id="lifestyle" class="store-grid tab-content">
+            <section id="lifestyle" class="tab-content">
+                <div class="section-header glass">
+                    <img src="/logo1.png" alt="Icon" class="section-icon">
+                    <h1>APPAREL & ACCESSORIES</h1>
+                </div>
+                <div class="category-pills" id="lifestyle-cats">
+                    <button class="pill-btn active" data-cat="all">ALL</button>
+                    <button class="pill-btn" data-cat="tees">TEES</button>
+                    <button class="pill-btn" data-cat="hats">HATS</button>
+                    <button class="pill-btn" data-cat="beanies">BEANIES</button>
+                    <button class="pill-btn" data-cat="combos">COMBOS</button>
+                    <button class="pill-btn" data-cat="accessories">ACCESSORIES</button>
+                </div>
                 <!-- Items will be injected here -->
+                <div class="store-grid" id="lifestyle-grid"></div>
             </section>
 
             <!-- Vault Section (Restricted) -->
-            <section id="vault" class="store-grid tab-content">
+            <section id="vault" class="tab-content">
+                <div class="section-header glass">
+                    <img src="/logo1.png" alt="Icon" class="section-icon">
+                    <h1>THE VAULT</h1>
+                </div>
+                <div class="warning-bar glass">LOCAL 21+ Kern County residents only. ID required at fulfillment.</div>
+                <div class="category-pills" id="vault-cats">
+                    <button class="pill-btn active" data-cat="all">ALL</button>
+                    <button class="pill-btn" data-cat="flower">FLOWER</button>
+                    <button class="pill-btn" data-cat="wax">WAX</button>
+                    <button class="pill-btn" data-cat="disposables">DISPOSABLES</button>
+                    <button class="pill-btn" data-cat="edibles">EDIBLES</button>
+                    <button class="pill-btn" data-cat="specials">SPECIALS</button>
+                    <button class="pill-btn" data-cat="sales">SALES</button>
+                </div>
                 <!-- Items will be injected here -->
+                <div class="store-grid" id="vault-grid"></div>
             </section>
         </main>
 

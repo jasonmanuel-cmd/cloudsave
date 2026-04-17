@@ -1,166 +1,255 @@
 import * as PIXI from 'pixi.js';
-import { gsap } from 'gsap';
+import gsap from 'gsap';
 
-// Configuration & State
+// State
 const state = {
-    isAgeVerified: false,
-    activeTab: 'lifestyle',
     cart: [],
-    products: [
-        // Lifestyle Items
-        { id: 1, name: 'CLOUDS BLUE BEANIE', type: 'lifestyle', price: 29.99, img: '/images/store/ca-beanie-blue.png', category: 'Apparel' },
-        { id: 2, name: 'NAVY TEE', type: 'lifestyle', price: 34.99, img: '/images/store/ca-tee-navy.png', category: 'Apparel' },
-        { id: 3, name: 'PINK TEE', type: 'lifestyle', price: 34.99, img: '/images/store/ca-tee-pink.png', category: 'Apparel' },
-        { id: 4, name: 'RED TEE', type: 'lifestyle', price: 34.99, img: '/images/store/ca-tee-red.png', category: 'Apparel' },
-        { id: 5, name: 'ROYAL BLUE TEE', type: 'lifestyle', price: 34.99, img: '/images/store/ca-tee-royal-blue.png', category: 'Apparel' },
-        { id: 6, name: 'YELLOW TEE', type: 'lifestyle', price: 34.99, img: '/images/store/ca-tee-yellow.png', category: 'Apparel' },
-        { id: 7, name: 'TRUCKER HAT', type: 'lifestyle', price: 39.99, img: '/images/store/ca-hat-trucker.png', category: 'Apparel' },
-        { id: 8, name: 'COMBO BLUE SET', type: 'lifestyle', price: 59.99, img: '/images/store/ca-combo-blue-tee-beanie.png', category: 'Bundle' },
-        { id: 9, name: 'COMBO PINK SET', type: 'lifestyle', price: 59.99, img: '/images/store/ca-combo-pink-tee-blue-hat.png', category: 'Bundle' },
-        { id: 10, name: 'TRAY', type: 'lifestyle', price: 19.99, img: '/images/store/ca-tray.png', category: 'Accessory' },
-        { id: 11, name: 'GRINDER', type: 'lifestyle', price: 24.99, img: '/images/store/ca-grinder.png', category: 'Accessory' },
-        { id: 12, name: 'GLASS PIPE', type: 'lifestyle', price: 14.99, img: '/images/store/ca-glass-pipe.png', category: 'Accessory' },
-        { id: 13, name: 'CONES (3PK)', type: 'lifestyle', price: 4.99, img: '/images/store/ca-cones.png', category: 'Accessory' },
-        { id: 14, name: 'ONE HITTER', type: 'lifestyle', price: 9.99, img: '/images/store/ca-one-hitter.png', category: 'Accessory' },
-        { id: 21, name: 'HARD CASE', type: 'lifestyle', price: 15.99, img: '/images/store/ca-case.png', category: 'Accessory' },
-        
-        // Vault Items
-        { id: 101, name: 'PREMIUM FLOWER', type: 'vault', price: 45.00, img: '/images/store/ca-menu-flower.png', category: 'Flower' },
-        { id: 102, name: 'DISPOSABLE PEN', type: 'vault', price: 35.00, img: '/images/store/ca-menu-disposable.png', category: 'Vape' },
-        { id: 103, name: 'LIVE RESIN WAX', type: 'vault', price: 40.00, img: '/images/store/ca-menu-wax.png', category: 'Extract' },
-        { id: 104, name: 'GUMMY EDIBLES', type: 'vault', price: 25.00, img: '/images/store/ca-menu-edibles.png', category: 'Edible' },
-        { id: 105, name: '510 BATTERY A', type: 'vault', price: 20.00, img: '/images/store/ca-battery-510-a.png', category: 'Hardware' },
-        { id: 106, name: '510 BATTERY B', type: 'vault', price: 20.00, img: '/images/store/ca-battery-510-b.png', category: 'Hardware' },
-        { id: 107, name: 'C.A. VAPE PEN', type: 'vault', price: 30.00, img: '/images/store/ca-wax-pen.png', category: 'Vape' },
+    isAgeVerified: false,
+    activeTab: 'hero',
+    filters: {
+        lifestyle: 'all',
+        vault: 'all'
+    }
+};
+
+// Data
+const productData = {
+    lifestyle: [
+        { id: 1, name: 'HGM MONEY TREE TEE - PINK', type: 'lifestyle', price: 30.00, img: '/images/store/ca-tee-pink.png', category: 'tees', isTopSeller: true },
+        { id: 2, name: 'HGM MONEY TREE TEE - YELLOW', type: 'lifestyle', price: 30.00, img: '/images/store/ca-tee-yellow.png', category: 'tees' },
+        { id: 3, name: 'HGM MONEY TREE TEE - NAVY', type: 'lifestyle', price: 30.00, img: '/images/store/ca-tee-navy.png', category: 'tees' },
+        { id: 4, name: 'HGM TRUCKER HAT - SKY BLUE', type: 'lifestyle', price: 25.00, img: '/images/store/ca-hat-blue.png', category: 'hats' },
+        { id: 5, name: 'HGM BEANIE - BLUE', type: 'lifestyle', price: 20.00, img: '/images/store/ca-beanie-blue.png', category: 'beanies', isTopSeller: true },
+        { id: 6, name: 'HGM BLUE TEE + BLUE BEANIE', type: 'lifestyle', price: 45.00, img: '/images/store/ca-combo.png', category: 'combos' },
+    ],
+    vault: [
+        { id: 101, name: 'HGM LEGENDS SERIES (JORDAN, KOBE...)', type: 'vault', price: 45.00, img: '/images/store/ca-menu-flower.png', category: 'flower', isTopSeller: true },
+        { id: 102, name: 'PREMIUM DISPOSABLES (MUHAMMED, TRAP CITY...)', type: 'vault', price: 35.00, img: '/images/store/ca-menu-disposable.png', category: 'disposables' },
+        { id: 103, name: 'LIVE RESIN WAX', type: 'vault', price: 40.00, img: '/images/store/ca-menu-wax.png', category: 'wax' },
+        { id: 104, name: 'GUMMY EDIBLES', type: 'vault', price: 25.00, img: '/images/store/ca-menu-edibles.png', category: 'edibles' },
+        { id: 105, name: 'HGM DESSERT SERIES (ICE CREAM, FRITTER)', type: 'vault', price: 45.00, img: '/images/store/ca-menu-flower.png', category: 'flower' },
     ]
 };
 
-// --- PIXI.JS PARTICLE SYSTEM ---
+// --- BACKGROUND ENGINE (The Clouds) ---
 class ParticleSystem {
     constructor() {
-        this.app = new PIXI.Application({
-            view: document.getElementById('bg-canvas'),
-            width: window.innerWidth,
-            height: window.innerHeight,
-            backgroundAlpha: 0,
-            resizeTo: window
-        });
-
+        this.app = new PIXI.Application();
         this.particles = [];
-        this.particleCount = 50;
-        this.textures = [];
-        this.mouse = { x: 0, y: 0 };
-
+        this.mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
         this.init();
     }
 
     async init() {
-        // Load textures
-        const logoTexture = await PIXI.Assets.load('/logo1.png');
-        this.textures.push(logoTexture);
+        await this.app.init({
+            width: window.innerWidth,
+            height: window.innerHeight,
+            backgroundAlpha: 0,
+            antialias: true
+        });
+
+        document.getElementById('bg-canvas').replaceWith(this.app.canvas);
+        this.app.canvas.id = 'bg-canvas';
+
+        // Create Murakami Flower Texture using Graphics
+        const graphics = new PIXI.Graphics();
+        
+        // Petals
+        const numPetals = 12;
+        graphics.beginFill(0xFF007F); // Bright pink
+        for (let i = 0; i < numPetals; i++) {
+            const angle = (i / numPetals) * Math.PI * 2;
+            graphics.drawCircle(Math.cos(angle) * 18, Math.sin(angle) * 18, 10);
+        }
+        graphics.endFill();
+        
+        // Face
+        graphics.beginFill(0xF7FF00); // Bright yellow
+        graphics.drawCircle(0, 0, 16);
+        graphics.endFill();
+        
+        // Eyes
+        graphics.beginFill(0x000000);
+        graphics.drawCircle(-5, -4, 2.5);
+        graphics.drawCircle(5, -4, 2.5);
+        graphics.endFill();
+        
+        // Smile
+        graphics.lineStyle(2, 0x000000);
+        graphics.arc(0, 0, 8, 0.2, Math.PI - 0.2);
+
+        const flowerTexture = this.app.renderer.generateTexture(graphics);
 
         // Layers for parallax
         this.layers = [
-            { count: 40, speedScale: 0.5, blur: 4, scale: 0.04 },  // Back
-            { count: 30, speedScale: 1.0, blur: 0, scale: 0.08 },  // Mid
-            { count: 20, speedScale: 2.0, blur: 0, scale: 0.15 }   // Front
+            new PIXI.Container(),
+            new PIXI.Container(),
+            new PIXI.Container()
         ];
-
-        this.layers.forEach(layer => {
-            for (let i = 0; i < layer.count; i++) {
-                this.createParticle(layer);
-            }
+        
+        this.layers.forEach((layer, i) => {
+            const blurFilter = new PIXI.BlurFilter();
+            blurFilter.blur = i === 0 ? 0 : (i === 1 ? 4 : 10);
+            layer.filters = [blurFilter];
+            this.app.stage.addChild(layer);
         });
 
-        this.app.ticker.add(() => this.update());
+        for (let i = 0; i < 40; i++) {
+            const size = Math.random();
+            let layerIdx = 0;
+            if (size < 0.3) layerIdx = 2;
+            else if (size < 0.6) layerIdx = 1;
+
+            const p = new PIXI.Sprite(flowerTexture);
+            p.anchor.set(0.5);
+            p.scale.set(size * 1.5 + 0.5);
+            p.x = Math.random() * window.innerWidth;
+            p.y = Math.random() * window.innerHeight;
+            
+            p.vx = (Math.random() - 0.5) * (3 - layerIdx);
+            p.vy = (Math.random() - 0.5) * (3 - layerIdx);
+            p.baseScale = p.scale.x;
+            p.layerIdx = layerIdx;
+            
+            this.layers[layerIdx].addChild(p);
+            this.particles.push(p);
+        }
+
         window.addEventListener('mousemove', (e) => {
             this.mouse.x = e.clientX;
             this.mouse.y = e.clientY;
         });
+
+        window.addEventListener('resize', () => {
+            this.app.renderer.resize(window.innerWidth, window.innerHeight);
+        });
+
+        this.app.ticker.add(() => this.animate());
     }
 
-    createParticle(layer) {
-        const sprite = new PIXI.Sprite(this.textures[0]);
-        sprite.anchor.set(0.5);
-        
-        // Random placement
-        sprite.x = Math.random() * this.app.screen.width;
-        sprite.y = Math.random() * this.app.screen.height;
-        
-        // Neo-Pop tinting
-        const colors = [0xFF007F, 0xF7FF00, 0x39FF14, 0x00FFFF];
-        sprite.tint = colors[Math.floor(Math.random() * colors.length)];
-        
-        // Superflat scaling based on layer
-        sprite.scale.set(layer.scale + (Math.random() * 0.02));
-
-        if (layer.blur > 0) {
-            const blurFilter = new PIXI.BlurFilter();
-            blurFilter.blur = layer.blur;
-            sprite.filters = [blurFilter];
-        }
-        
-        const particle = {
-            sprite,
-            vx: (Math.random() - 0.5) * layer.speedScale * 2,
-            vy: (Math.random() - 0.5) * layer.speedScale * 2,
-            rot: (Math.random() - 0.5) * 0.02,
-            speedScale: layer.speedScale
-        };
-
-        this.app.stage.addChild(sprite);
-        this.particles.push(particle);
-    }
-
-    update() {
+    animate() {
         this.particles.forEach(p => {
-            p.sprite.x += p.vx;
-            p.sprite.y += p.vy;
-            p.sprite.rotation += p.rot;
+            p.x += p.vx;
+            p.y += p.vy;
+            p.rotation += (p.vx > 0 ? 0.01 : -0.01); // Slowly spin
 
-            // Mouse Repulsion
-            const dx = p.sprite.x - this.mouse.x;
-            const dy = p.sprite.y - this.mouse.y;
+            // Bounce
+            if (p.x < 0 || p.x > window.innerWidth) p.vx *= -1;
+            if (p.y < 0 || p.y > window.innerHeight) p.vy *= -1;
+
+            // Mouse repulsion (stronger on foreground)
+            const dx = this.mouse.x - p.x;
+            const dy = this.mouse.y - p.y;
             const dist = Math.sqrt(dx * dx + dy * dy);
-            
-            if (dist < 150) {
+
+            if (dist < 200 && p.layerIdx === 0) {
                 const angle = Math.atan2(dy, dx);
-                const force = (150 - dist) / 150;
-                p.sprite.x += Math.cos(angle) * force * 10 * p.speedScale;
-                p.sprite.y += Math.sin(angle) * force * 10 * p.speedScale;
+                const push = (200 - dist) * 0.02;
+                p.vx -= Math.cos(angle) * push;
+                p.vy -= Math.sin(angle) * push;
             }
 
-            // Wrap around
-            if (p.sprite.x < -100) p.sprite.x = this.app.screen.width + 100;
-            if (p.sprite.x > this.app.screen.width + 100) p.sprite.x = -100;
-            if (p.sprite.y < -100) p.sprite.y = this.app.screen.height + 100;
-            if (p.sprite.y > this.app.screen.height + 100) p.sprite.y = -100;
-
-            // Optional: Color rotation for "Controlled Chaos"
-            p.sprite.tint = this.updateHue(p.sprite.tint, 0.001); 
+            // Friction
+            p.vx *= 0.99;
+            p.vy *= 0.99;
+            
+            // Min speed
+            if(Math.abs(p.vx) < 0.5) p.vx += p.vx > 0 ? 0.1 : -0.1;
+            if(Math.abs(p.vy) < 0.5) p.vy += p.vy > 0 ? 0.1 : -0.1;
         });
-    }
-
-    updateHue(hex, amount) {
-        // Simple hue shift in hex
-        let color = PIXI.Color.shared.setValue(hex);
-        let hsla = color.toHsl();
-        hsla.h = (hsla.h + amount) % 1;
-        color.setValues(hsla);
-        return color.toNumber();
     }
 }
 
 // --- STORE UI LOGIC ---
-function initStore() {
-    renderProducts('lifestyle');
-    renderProducts('vault');
+function renderProducts(type, category = 'all') {
+    const list = productData[type];
+    const filtered = category === 'all' ? list : list.filter(p => p.category === category);
     
-    // Tab switching
+    // Setup target ID
+    let targetID = type === 'lifestyle' ? 'lifestyle-grid' : 'vault-grid';
+    
+    const container = document.getElementById(targetID);
+    if (!container) return;
+    
+    container.innerHTML = filtered.map(p => {
+        return `
+            <div class="product-card glass">
+                <div class="product-img-wrapper">
+                     <img src="${p.img}" alt="${p.name}" class="product-img" onerror="this.src='/logo1.png'">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">${p.category}</span>
+                    <h3 class="product-name">${p.name}</h3>
+                    <div class="product-details">
+                        ${type === 'vault' ? '<p class="desc">High-performance carefully selected stock. Call for current availability and rotation.</p>' : ''}
+                        <span class="product-price">$${p.price.toFixed(2)}</span>
+                    </div>
+                    <div class="fulfillment">
+                        ${p.type === 'vault' 
+                            ? '<span class="badge">PICKUP</span> <span class="badge">LOCAL DELIVERY</span>' 
+                            : '<span class="badge">NATIONWIDE DELIVERY</span>'}
+                    </div>
+                </div>
+                <button class="add-to-cart ${type === 'vault' ? 'call-btn' : ''}" data-id="${p.id}">
+                    ${type === 'vault' ? 'CALL TO RESERVE' : 'ADD TO CART'}
+                </button>
+            </div>
+        `;
+    }).join('');
+
+    // Attach cart events
+    container.querySelectorAll('.add-to-cart').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            if(btn.classList.contains('call-btn')) {
+                window.location.href = "tel:6615011881";
+                return;
+            }
+            const id = parseInt(e.target.dataset.id);
+            const item = productData[type].find(p => p.id === id);
+            addToCart(item);
+            
+            // Pop anim
+            gsap.fromTo(e.target, 
+                { scale: 0.9 }, 
+                { scale: 1, duration: 0.3, ease: "elastic.out(1, 0.3)" }
+            );
+        });
+    });
+}
+
+function renderTopSellers() {
+    const allProducts = [...productData.lifestyle, ...productData.vault];
+    const topSellers = allProducts.filter(p => p.isTopSeller).slice(0, 3);
+    
+    const container = document.getElementById('top-sellers-grid');
+    if(!container) return;
+
+    container.innerHTML = topSellers.map(p => {
+        return `
+            <div class="product-card glass">
+                <div class="product-img-wrapper">
+                     <img src="${p.img}" alt="${p.name}" class="product-img" onerror="this.src='/logo1.png'">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">TOP SELLER - ${p.category}</span>
+                    <h3 class="product-name">${p.name}</h3>
+                </div>
+                <button class="add-to-cart" onclick="document.querySelector('[data-tab=\\'${p.type}\\']').click()">VIEW IN STORE</button>
+            </div>
+        `;
+    }).join('');
+}
+
+function initStore() {
+    renderProducts('lifestyle', 'all');
+    renderProducts('vault', 'all');
+    renderTopSellers();
+    
+    // Main Tab switching
     document.querySelectorAll('.nav-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             const target = btn.dataset.tab;
-            if (!target) return; // Prevent breaking on external links like IG
+            if (!target) return; // external links like IG
             
             if (target === 'cart') {
                 toggleCart(true);
@@ -172,18 +261,24 @@ function initStore() {
                 return;
             }
             
-            if (target === 'hero') {
-                switchTab('hero');
-                return;
-            }
-            
             switchTab(target);
         });
     });
 
-    // Hero CTA
-    document.querySelector('.cta-btn').addEventListener('click', () => {
-        switchTab('lifestyle');
+    // Pill Category filtering
+    document.querySelectorAll('.pill-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const cat = btn.dataset.cat;
+            // find which section we are in
+            const section = btn.closest('.tab-content').id;
+            
+            // Update UI active state
+            btn.parentElement.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            // Render
+            renderProducts(section, cat);
+        });
     });
 
     // Age Gate
@@ -197,7 +292,7 @@ function initStore() {
         window.location.href = 'https://google.com';
     });
 
-    // Slash Screen Entry
+    // Splash Screen Entry
     document.getElementById('enter-site-btn').addEventListener('click', () => {
         document.getElementById('splash-screen').classList.add('hidden');
         document.getElementById('app').classList.remove('hidden');
@@ -212,108 +307,81 @@ function initStore() {
 
 function switchTab(tabId) {
     state.activeTab = tabId;
-    
-    // Update Nav
-    document.querySelectorAll('.nav-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.tab === tabId);
-    });
-
-    // Update Sections
     document.querySelectorAll('.tab-content').forEach(section => {
-        section.classList.toggle('active', section.id === tabId);
+        if (section.id === tabId) {
+            section.classList.add('active');
+            gsap.fromTo(section, 
+                { opacity: 0, y: 30 }, 
+                { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }
+            );
+        } else {
+            section.classList.remove('active');
+        }
     });
 
-    // Scroll to top
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function renderProducts(type) {
-    const container = document.getElementById(type);
-    if (!container) return;
-    
-    const items = state.products.filter(p => p.type === type);
-    
-    container.innerHTML = items.map(p => `
-        <div class="product-card">
-            <div class="product-img-wrapper">
-                <img src="${p.img}" alt="${p.name}" class="product-img">
-            </div>
-            <div class="product-info">
-                <span class="product-category">${p.category}</span>
-                <h3 class="product-name">${p.name}</h3>
-                <span class="product-price">$${p.price.toFixed(2)}</span>
-                <div class="fulfillment">
-                    ${p.type === 'vault' 
-                        ? '<span class="badge">PICKUP</span> <span class="badge">LOCAL DELIVERY</span>' 
-                        : '<span class="badge">NATIONWIDE DELIVERY</span>'}
-                </div>
-            </div>
-            <button class="add-to-cart" onclick="addToCart(${p.id})">ADD TO BAG</button>
-        </div>
-    `).join('');
+    // Update nav buttons visually
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+        if (btn.dataset.tab === tabId && tabId !== 'cart') {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
 }
 
 function showAgeGate() {
-    document.getElementById('age-gate').classList.remove('hidden');
+    const gate = document.getElementById('age-gate');
+    gate.classList.remove('hidden');
 }
 
 function hideAgeGate() {
-    document.getElementById('age-gate').classList.add('hidden');
+    const gate = document.getElementById('age-gate');
+    gate.classList.add('hidden');
+}
+
+// --- CART LOGIC ---
+function addToCart(item) {
+    state.cart.push(item);
+    updateCartUI();
 }
 
 function toggleCart(show) {
-    document.getElementById('cart-drawer').classList.toggle('hidden', !show);
+    const drawer = document.getElementById('cart-drawer');
+    if (show) {
+        drawer.classList.remove('hidden');
+        gsap.fromTo('.cart-content', 
+            { x: '100%'}, 
+            { x: '0%', duration: 0.4, ease: "power3.out" }
+        );
+    } else {
+        gsap.to('.cart-content', {
+            x: '100%', 
+            duration: 0.3, 
+            onComplete: () => drawer.classList.add('hidden')
+        });
+    }
 }
 
-// Expose to window for inline onclick
-window.addToCart = (id) => {
-    const product = state.products.find(p => p.id === id);
-    state.cart.push(product);
-    updateCart();
+function updateCartUI() {
+    document.getElementById('cart-count').innerText = state.cart.length;
     
-    // Bounce animation on cart button
-    const cartBtn = document.querySelector('[data-tab="cart"]');
-    gsap.to(cartBtn, { scale: 1.2, duration: 0.1, yoyo: true, repeat: 1 });
-};
-
-function updateCart() {
-    const cartItems = document.getElementById('cart-items');
-    const cartTotal = document.getElementById('cart-total');
-    const cartBtn = document.querySelector('[data-tab="cart"]');
-    
-    cartBtn.innerText = `CART (${state.cart.length})`;
-    
-    if (state.cart.length === 0) {
-        cartItems.innerHTML = '<p style="text-align:center; padding: 20px;">Your bag is empty.</p>';
-        cartTotal.innerText = 'TOTAL: $0.00';
-        return;
-    }
-    
-    const total = state.cart.reduce((sum, p) => sum + p.price, 0);
-    cartTotal.innerText = `TOTAL: $${total.toFixed(2)}`;
-    
-    cartItems.innerHTML = state.cart.map((p, index) => `
-        <div class="cart-item" style="display:flex; gap:15px; padding:15px; margin-bottom:15px; border-radius:12px; align-items:center;">
-            <img src="${p.img}" style="width:70px; background:#f4f4f4; border: 2px solid #000; border-radius:8px;">
-            <div style="flex:1; text-align:left;">
-                <h4 style="font-size:1rem; font-family:var(--font-bubbly); color:#000;">${p.name}</h4>
-                <p style="font-weight:700; color:var(--primary-pink); font-size:1.1rem;">$${p.price.toFixed(2)}</p>
-            </div>
-            <button onclick="removeFromCart(${index})" style="background:var(--primary-yellow); border:3px solid #000; border-radius:50%; width:30px; height:30px; font-weight:bold; color:#000; cursor:pointer; box-shadow:2px 2px 0 #000;">✕</button>
+    const container = document.getElementById('cart-items');
+    container.innerHTML = state.cart.map((item, index) => `
+        <div class="cart-item">
+            <span>${item.name}</span>
+            <span>$${item.price.toFixed(2)}</span>
+            <button class="remove-btn" onclick="window.removeFromCart(${index})">X</button>
         </div>
     `).join('');
+
+    const total = state.cart.reduce((sum, item) => sum + item.price, 0);
+    document.getElementById('cart-total').innerText = `TOTAL: $${total.toFixed(2)}`;
 }
 
 window.removeFromCart = (index) => {
     state.cart.splice(index, 1);
-    updateCart();
+    updateCartUI();
 };
 
 // Initialize
 initStore();
-
-// Psychologically driven: occasional "bloom" of flowers
-setInterval(() => {
-    const text = document.querySelector('h1');
-    gsap.to(text, { scale: 1.05, duration: 0.5, yoyo: true, repeat: 1, ease: "power2.inOut" });
-}, 5000);
