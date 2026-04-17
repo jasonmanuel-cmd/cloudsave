@@ -18,7 +18,9 @@ export default defineConfig({
         about: resolve(__dirname, 'about.html'),
         terms: resolve(__dirname, 'terms.html'),
         privacy: resolve(__dirname, 'privacy.html'),
-        shipping: resolve(__dirname, 'shipping.html')
+        shipping: resolve(__dirname, 'shipping.html'),
+        faq: resolve(__dirname, 'faq.html'),
+        contact: resolve(__dirname, 'contact.html')
       }
     }
   }

@@ -332,5 +332,22 @@ window.removeFromCart = (index) => {
     updateCartUI();
 };
 
+function initCookieBanner() {
+    const bar = document.getElementById('cookie-banner');
+    const btn = document.getElementById('cookie-dismiss');
+    if (!bar || !btn) return;
+
+    if (localStorage.getItem('cloud-ave-cookie-consent') === '1') {
+        return;
+    }
+    bar.hidden = false;
+
+    btn.addEventListener('click', () => {
+        localStorage.setItem('cloud-ave-cookie-consent', '1');
+        bar.hidden = true;
+    });
+}
+
 // Initialize
 initStore();
+initCookieBanner();
