@@ -40,7 +40,7 @@ function getMemberDisplayName(user) {
 // Square Configuration
 const appId = import.meta.env.VITE_SQUARE_APP_ID || '';
 const locationId = import.meta.env.VITE_SQUARE_LOCATION_ID || '';
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export const ecommerce = {
     user: null,
@@ -110,7 +110,7 @@ export const ecommerce = {
             return;
         }
 
-        if (!EMAIL_PATTERN.test(email)) {
+        if (!EMAIL_REGEX.test(email)) {
             alert('Please enter a valid email address.');
             return;
         }
