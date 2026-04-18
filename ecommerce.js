@@ -18,8 +18,13 @@ function getAuthElements() {
     };
 }
 
-function getFieldValue(selector) {
-    return document.querySelector(selector)?.value?.trim() || '';
+function getFieldValue(selectors) {
+    const selectorList = Array.isArray(selectors) ? selectors : [selectors];
+    for (const selector of selectorList) {
+        const value = document.querySelector(selector)?.value?.trim();
+        if (value) return value;
+    }
+    return '';
 }
 
 // Square Configuration
@@ -86,7 +91,7 @@ export const ecommerce = {
 
         const firstName = getFieldValue('#member-first-name');
         const lastName = getFieldValue('#member-last-name');
-        const email = getFieldValue('#member-email') || getFieldValue('#email-login input[type="email"]');
+        const email = getFieldValue(['#member-email', '#email-login input[type="email"]']);
         const phone = getFieldValue('#member-phone');
 
         if (!email) {
@@ -129,7 +134,9 @@ export const ecommerce = {
             authContainer?.classList.add('hidden');
             profileContainer?.classList.remove('hidden');
             const metadata = this.user.user_metadata || {};
-            const fullName = metadata.full_name || `${metadata.first_name || ''} ${metadata.last_name || ''}`.trim();
+            const firstName = metadata.first_name || '';
+            const lastName = metadata.last_name || '';
+            const fullName = metadata.full_name || ((firstName || lastName) ? `${firstName} ${lastName}`.trim() : '');
             const name = fullName || this.user.email || 'Member';
             if (userDisplayName) userDisplayName.innerText = name;
             if (cardUserName) cardUserName.innerText = name;
