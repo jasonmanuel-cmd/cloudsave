@@ -21,6 +21,14 @@
     box-sizing: border-box;
 }
 
+.hidden {
+    display: none !important;
+}
+
+.overlay.hidden {
+    display: none !important;
+}
+
 /* Skip link (accessibility) */
 .skip-link {
     position: absolute;
@@ -1802,4 +1810,41 @@ main {
     font-family: var(--font-bubbly);
     color: var(--acid-green);
     margin-top: 0;
+}
+
+/* --- Splash Screen Fixes --- */
+.splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+#splash-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    z-index: 1;
+}
+
+.splash-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+}
+
+/* Visibility Utility */
+.hidden {
+    display: none !important;
 }

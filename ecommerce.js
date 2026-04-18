@@ -1,13 +1,17 @@
 import { createClient } from '@supabase/supabase-js';
 
-// Supabase Configuration (Placeholder - User should fill in .env)
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'YOUR_SUPABASE_URL';
-const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'YOUR_SUPABASE_ANON_KEY';
-const supabase = createClient(supabaseUrl, supabaseKey);
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://placeholder.supabase.co';
+const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'placeholder';
+let supabase;
+try {
+    supabase = createClient(supabaseUrl, supabaseKey);
+} catch (e) {
+    console.warn('Supabase initialization failed. Auth features may be disabled.', e);
+}
 
 // Square Configuration
-const appId = import.meta.env.VITE_SQUARE_APP_ID || 'sandbox-sq0idb-YOUR_APP_ID';
-const locationId = import.meta.env.VITE_SQUARE_LOCATION_ID || 'L_YOUR_LOCATION_ID';
+const appId = import.meta.env.VITE_SQUARE_APP_ID || '';
+const locationId = import.meta.env.VITE_SQUARE_LOCATION_ID || '';
 
 export const ecommerce = {
     user: null,
@@ -20,6 +24,7 @@ export const ecommerce = {
     },
 
     async checkUser() {
+        if (!supabase) return;
         const { data: { user } } = await supabase.auth.getUser();
         this.user = user;
         this.updateProfileUI();
