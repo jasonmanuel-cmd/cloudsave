@@ -9,6 +9,15 @@ try {
     console.warn('Supabase initialization failed. Auth features may be disabled.', e);
 }
 
+function getAuthElements() {
+    return {
+        authContainer: document.getElementById('auth-ui') || document.getElementById('auth-container'),
+        profileContainer: document.getElementById('member-profile'),
+        userDisplayName: document.getElementById('user-display-name') || document.getElementById('member-name'),
+        cardUserName: document.getElementById('card-user-name')
+    };
+}
+
 // Square Configuration
 const appId = import.meta.env.VITE_SQUARE_APP_ID || '';
 const locationId = import.meta.env.VITE_SQUARE_LOCATION_ID || '';
@@ -31,12 +40,12 @@ export const ecommerce = {
     },
 
     setupAuthListeners() {
-        const googleBtn = document.getElementById('google-signup');
+        const googleBtn = document.getElementById('google-signup') || document.getElementById('google-login');
         if (googleBtn) {
             googleBtn.addEventListener('click', () => this.signUpWithGoogle());
         }
 
-        const emailForm = document.getElementById('email-signup');
+        const emailForm = document.getElementById('email-signup') || document.getElementById('email-login');
         if (emailForm) {
             emailForm.addEventListener('submit', (e) => {
                 e.preventDefault();
@@ -51,6 +60,11 @@ export const ecommerce = {
     },
 
     async signUpWithGoogle() {
+        if (!supabase) {
+            alert('Member signup is temporarily unavailable.');
+            return;
+        }
+
         const { error } = await supabase.auth.signInWithOAuth({
             provider: 'google',
             options: {
@@ -61,10 +75,22 @@ export const ecommerce = {
     },
 
     async signUpWithEmail() {
-        const firstName = document.getElementById('member-first-name').value;
-        const lastName = document.getElementById('member-last-name').value;
-        const email = document.getElementById('member-email').value;
-        const phone = document.getElementById('member-phone').value;
+        if (!supabase) {
+            alert('Member signup is temporarily unavailable.');
+            return;
+        }
+
+        const firstName = document.getElementById('member-first-name')?.value?.trim() || '';
+        const lastName = document.getElementById('member-last-name')?.value?.trim() || '';
+        const email = document.getElementById('member-email')?.value?.trim()
+            || document.querySelector('#email-login input[type="email"]')?.value?.trim()
+            || '';
+        const phone = document.getElementById('member-phone')?.value?.trim() || '';
+
+        if (!email) {
+            alert('Please enter a valid email address.');
+            return;
+        }
 
         const { data, error } = await supabase.auth.signUp({
             email,
@@ -88,26 +114,26 @@ export const ecommerce = {
     },
 
     async signOut() {
+        if (!supabase) return;
         await supabase.auth.signOut();
         this.user = null;
         this.updateProfileUI();
     },
 
     updateProfileUI() {
-        const authUI = document.getElementById('auth-ui');
-        const profileUI = document.getElementById('member-profile');
-        const userDisplayName = document.getElementById('user-display-name');
-        const cardUserName = document.getElementById('card-user-name');
+        const { authContainer, profileContainer, userDisplayName, cardUserName } = getAuthElements();
 
         if (this.user) {
-            authUI?.classList.add('hidden');
-            profileUI?.classList.remove('hidden');
-            const name = this.user.user_metadata.full_name || `${this.user.user_metadata.first_name} ${this.user.user_metadata.last_name}`;
+            authContainer?.classList.add('hidden');
+            profileContainer?.classList.remove('hidden');
+            const metadata = this.user.user_metadata || {};
+            const fullName = metadata.full_name || `${metadata.first_name || ''} ${metadata.last_name || ''}`.trim();
+            const name = fullName || this.user.email || 'Cloud User';
             if (userDisplayName) userDisplayName.innerText = name;
             if (cardUserName) cardUserName.innerText = name;
         } else {
-            authUI?.classList.remove('hidden');
-            profileUI?.classList.add('hidden');
+            authContainer?.classList.remove('hidden');
+            profileContainer?.classList.add('hidden');
         }
     },
 
