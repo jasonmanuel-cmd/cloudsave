@@ -27,6 +27,16 @@ function getFieldValue(selectors) {
     return '';
 }
 
+function getMemberDisplayName(user) {
+    const metadata = user?.user_metadata || {};
+    if (metadata.full_name) return metadata.full_name;
+
+    const firstName = metadata.first_name || '';
+    const lastName = metadata.last_name || '';
+    const combinedName = `${firstName} ${lastName}`.trim();
+    return combinedName || user?.email || 'Member';
+}
+
 // Square Configuration
 const appId = import.meta.env.VITE_SQUARE_APP_ID || '';
 const locationId = import.meta.env.VITE_SQUARE_LOCATION_ID || '';
@@ -133,11 +143,7 @@ export const ecommerce = {
         if (this.user) {
             authContainer?.classList.add('hidden');
             profileContainer?.classList.remove('hidden');
-            const metadata = this.user.user_metadata || {};
-            const firstName = metadata.first_name || '';
-            const lastName = metadata.last_name || '';
-            const fullName = metadata.full_name || ((firstName || lastName) ? `${firstName} ${lastName}`.trim() : '');
-            const name = fullName || this.user.email || 'Member';
+            const name = getMemberDisplayName(this.user);
             if (userDisplayName) userDisplayName.innerText = name;
             if (cardUserName) cardUserName.innerText = name;
         } else {
