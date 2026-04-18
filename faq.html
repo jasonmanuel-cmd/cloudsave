@@ -7,47 +7,73 @@
     <meta name="description" content="Frequently asked questions about Cloud Ave apparel shipping, The Vault local menu, ID requirements, and fulfillment.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=JetBrains+Mono:wght@400;700&family=Libre+Barcode+39&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/style.css">
+    <script src="https://sandbox.web.squarecdn.com/v1/payments.js"></script>
 </head>
 <body class="legal-shell">
-    <a href="#faq-main" class="skip-link">Skip to questions</a>
-    <div class="legal-top">
-        <a href="/" class="legal-back">← BACK TO SITE</a>
-        <a href="/"><img src="/logo1.png" alt="Cloud Ave" class="legal-logo"></a>
+    <div id="app">
+        <header>
+            <nav class="glass">
+                <div class="nav-links">
+                    <a href="/" class="nav-btn">LIFESTYLE</a>
+                    <a href="/" class="nav-btn">THE VAULT</a>
+                    <a href="/about.html" class="nav-btn">ABOUT</a>
+                </div>
+                <div class="logo-container" style="cursor: pointer;">
+                    <a href="/"><img src="/logo1.png" alt="Cloud Ave Logo" id="nav-logo"></a>
+                </div>
+                <div class="nav-links">
+                    <a href="/faq.html" class="nav-btn active">FAQ</a>
+                    <a href="/contact.html" class="nav-btn">CONTACT</a>
+                    <a href="/members.html" class="nav-btn">MEMBERS</a>
+                    <button class="nav-btn" id="open-cart-static">CART</button>
+                </div>
+            </nav>
+        </header>
+
+        <main id="main-content" style="padding-top: 40px;">
+            <section class="tab-content active">
+                <div class="section-header glass">
+                    <img src="/logo1.png" alt="Icon" class="section-icon">
+                    <h1>FREQUENTLY ASKED QUESTIONS</h1>
+                </div>
+                <div class="about-content glass">
+                    <div class="faq-list">
+                        <h2>General</h2>
+                        <p><strong>What is Cloud Ave?</strong><br>Cloud Ave is a Bakersfield-rooted brand: premium streetwear and accessories that ship nationwide, plus a separate 21+ local menu (The Vault) for Kern County pickup and delivery coordination only.</p>
+                        <p><strong>How do I reach you?</strong><br>DM <a href="https://www.instagram.com/clouds.backupp/" target="_blank" rel="noopener noreferrer">Instagram</a> or use the <a href="/contact.html">Contact</a> page. A phone number will be posted when it’s set.</p>
+                
+                        <h2>Lifestyle (apparel)</h2>
+                        <p><strong>Do you ship apparel outside Bakersfield?</strong><br>Yes. Lifestyle items are built for nationwide shipping where permitted. Checkout and carriers are described at order time.</p>
+                        <p><strong>Can I return or exchange apparel?</strong><br>Unworn items in original packaging may be eligible for exchange or store credit within a limited window—see <a href="/shipping.html">Shipping & Returns</a> and confirm with support before sending anything back.</p>
+                
+                        <h2>The Vault (local menu)</h2>
+                        <p><strong>Do you ship cannabis?</strong><br>No. Cannabis products are never shipped by mail or common carriers. Fulfillment is local pickup or local delivery coordination for qualified customers, with valid ID at fulfillment.</p>
+                        <p><strong>Who can access The Vault?</strong><br>You must be 21+ and meet local requirements (e.g., Kern County). ID is verified at fulfillment.</p>
+                        <p><strong>How do I reserve Vault items?</strong><br>Use the call-to-reserve flow on product cards. Availability rotates—phone confirmation keeps fulfillment accurate.</p>
+                
+                        <h2>Compliance</h2>
+                        <p><strong>Where are your policies?</strong><br><a href="/terms.html">Terms</a>, <a href="/privacy.html">Privacy</a>, and <a href="/shipping.html">Shipping & Returns</a> cover use of the site, data practices, and fulfillment rules.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="main-footer">
+            <nav class="footer-links" aria-label="Legal and info">
+                <a href="/about.html">About</a>
+                <a href="/faq.html">FAQ</a>
+                <a href="/contact.html">Contact</a>
+                <a href="/terms.html">Terms</a>
+                <a href="/privacy.html">Privacy</a>
+                <a href="/shipping.html">Shipping</a>
+            </nav>
+            <p>ran by <a href="https://coaibakersfield.com" target="_blank" rel="noopener noreferrer">COAIBAKERSFIELD.COM</a></p>
+        </footer>
     </div>
 
-    <article class="legal-doc" id="faq-main" tabindex="-1">
-        <h1>Frequently Asked Questions</h1>
-        <p class="legal-updated">Quick answers about Lifestyle, The Vault, and how we operate.</p>
-
-        <h2>General</h2>
-        <p><strong>What is Cloud Ave?</strong><br>Cloud Ave is a Bakersfield-rooted brand: premium streetwear and accessories that ship nationwide, plus a separate 21+ local menu (The Vault) for Kern County pickup and delivery coordination only.</p>
-        <p><strong>How do I reach you?</strong><br>DM <a href="https://www.instagram.com/clouds.backupp/" target="_blank" rel="noopener noreferrer">Instagram</a> or use the <a href="/contact.html">Contact</a> page. A phone number will be posted when it’s set.</p>
-
-        <h2>Lifestyle (apparel)</h2>
-        <p><strong>Do you ship apparel outside Bakersfield?</strong><br>Yes. Lifestyle items are built for nationwide shipping where permitted. Checkout and carriers are described at order time.</p>
-        <p><strong>Can I return or exchange apparel?</strong><br>Unworn items in original packaging may be eligible for exchange or store credit within a limited window—see <a href="/shipping.html">Shipping &amp; Returns</a> and confirm with support before sending anything back.</p>
-
-        <h2>The Vault (local menu)</h2>
-        <p><strong>Do you ship cannabis?</strong><br>No. Cannabis products are never shipped by mail or common carriers. Fulfillment is local pickup or local delivery coordination for qualified customers, with valid ID at fulfillment.</p>
-        <p><strong>Who can access The Vault?</strong><br>You must be 21+ and meet local requirements (e.g., Kern County). ID is verified at fulfillment.</p>
-        <p><strong>How do I reserve Vault items?</strong><br>Use the call-to-reserve flow on product cards. Availability rotates—phone confirmation keeps fulfillment accurate.</p>
-
-        <h2>Compliance</h2>
-        <p><strong>Where are your policies?</strong><br><a href="/terms.html">Terms</a>, <a href="/privacy.html">Privacy</a>, and <a href="/shipping.html">Shipping &amp; Returns</a> cover use of the site, data practices, and fulfillment rules.</p>
-    </article>
-
-    <footer class="main-footer" style="margin-top: 40px;">
-        <nav class="footer-links" aria-label="Footer">
-            <a href="/about.html">About</a>
-            <a href="/faq.html">FAQ</a>
-            <a href="/contact.html">Contact</a>
-            <a href="/terms.html">Terms</a>
-            <a href="/privacy.html">Privacy</a>
-            <a href="/shipping.html">Shipping</a>
-        </nav>
-        <p>ran by <a href="https://coaibakersfield.com" target="_blank" rel="noopener noreferrer">COAIBAKERSFIELD.COM</a></p>
-    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.10.1/tsparticles.bundle.min.js"></script>
+    <script type="module" src="/main.js"></script>
 </body>
 </html>

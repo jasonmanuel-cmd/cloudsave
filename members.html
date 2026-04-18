@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Members | Cloud Ave — Bakersfield</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=JetBrains+Mono:wght@400;700&family=Libre+Barcode+39&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://sandbox.web.squarecdn.com/v1/payments.js"></script>
+</head>
+<body class="legal-shell">
+    <div id="app">
+        <header>
+            <nav class="glass">
+                <div class="nav-links">
+                    <a href="/" class="nav-btn">LIFESTYLE</a>
+                    <a href="/" class="nav-btn">THE VAULT</a>
+                    <a href="/about.html" class="nav-btn">ABOUT</a>
+                </div>
+                <div class="logo-container" style="cursor: pointer;">
+                    <a href="/"><img src="/logo1.png" alt="Cloud Ave Logo" id="nav-logo"></a>
+                </div>
+                <div class="nav-links">
+                    <a href="/faq.html" class="nav-btn">FAQ</a>
+                    <a href="/contact.html" class="nav-btn">CONTACT</a>
+                    <a href="/members.html" class="nav-btn active">MEMBERS</a>
+                    <button class="nav-btn" id="open-cart-static">CART</button>
+                </div>
+            </nav>
+        </header>
+
+        <main id="main-content" style="padding-top: 40px;">
+             <!-- Copying the members section from index.html -->
+             <section id="members" class="tab-content active">
+                <div class="section-header glass">
+                    <img src="/logo1.png" alt="Icon" class="section-icon">
+                    <h1>MEMBERS CLUB</h1>
+                </div>
+
+                <div id="auth-container" class="glass">
+                    <div class="auth-box">
+                        <h2>Welcome to the Ave</h2>
+                        <p>Sign in for exclusive drops, loyalty rewards, and faster checkout.</p>
+                        <div class="auth-buttons">
+                            <button id="google-login" class="cta-btn secondary">CONTINUE WITH GOOGLE</button>
+                        </div>
+                        <div class="auth-divider"><span>OR</span></div>
+                        <form id="email-login">
+                            <input type="email" placeholder="YOUR EMAIL" class="glass-input">
+                            <button type="submit" class="cta-btn">SEND MAGIC LINK</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="member-profile" class="hidden">
+                    <div class="loyalty-card-wrapper">
+                        <div class="loyalty-card glass">
+                            <div class="card-brand">CLOUD AVE MEMBERS CLUB</div>
+                            <div class="card-user">
+                                <span class="label">MEMBER:</span>
+                                <span id="member-name" class="value">GUEST</span>
+                            </div>
+                            <div class="card-barcode" id="member-barcode">123456789</div>
+                            <div class="card-footer">BAKERSFIELD ROOTED · NATIONWIDE VIBE</div>
+                        </div>
+                    </div>
+                    <div class="member-stats-row">
+                        <div class="stat-box glass">
+                            <span class="label">POINTS</span>
+                            <span id="member-points" class="value">0</span>
+                        </div>
+                        <div class="stat-box glass">
+                            <span class="label">RANK</span>
+                            <span class="value">CLOUD CHASERS</span>
+                        </div>
+                    </div>
+                    <button id="logout-btn" class="nav-btn" style="margin-top: 20px;">LOGOUT</button>
+                </div>
+            </section>
+        </main>
+
+        <footer class="main-footer">
+            <nav class="footer-links" aria-label="Legal and info">
+                <a href="/about.html">About</a>
+                <a href="/faq.html">FAQ</a>
+                <a href="/contact.html">Contact</a>
+                <a href="/terms.html">Terms</a>
+                <a href="/privacy.html">Privacy</a>
+                <a href="/shipping.html">Shipping</a>
+            </nav>
+            <p>ran by <a href="https://coaibakersfield.com" target="_blank" rel="noopener noreferrer">COAIBAKERSFIELD.COM</a></p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.10.1/tsparticles.bundle.min.js"></script>
+    <script type="module" src="/main.js"></script>
+</body>
+</html>

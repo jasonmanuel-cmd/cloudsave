@@ -1,6 +1,6 @@
-import * as PIXI from 'pixi.js';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ecommerce } from './ecommerce.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,24 +18,77 @@ const state = {
 // Data
 const productData = {
     lifestyle: [
-        { id: 1, name: 'HGM MONEY TREE TEE - PINK', type: 'lifestyle', price: 30.00, img: '/images/store/ca-tee-pink.png', category: 'tees', isTopSeller: true },
-        { id: 2, name: 'HGM MONEY TREE TEE - YELLOW', type: 'lifestyle', price: 30.00, img: '/images/store/ca-tee-yellow.png', category: 'tees' },
-        { id: 3, name: 'HGM MONEY TREE TEE - NAVY', type: 'lifestyle', price: 30.00, img: '/images/store/ca-tee-navy.png', category: 'tees' },
-        { id: 4, name: 'HGM TRUCKER HAT - SKY BLUE', type: 'lifestyle', price: 25.00, img: '/images/store/ca-hat-blue.png', category: 'hats' },
-        { id: 5, name: 'HGM BEANIE - BLUE', type: 'lifestyle', price: 20.00, img: '/images/store/ca-beanie-blue.png', category: 'beanies', isTopSeller: true },
-        { id: 6, name: 'HGM BLUE TEE + BLUE BEANIE', type: 'lifestyle', price: 45.00, img: '/images/store/ca-combo.png', category: 'combos' },
+        // T-Shirts (4 slots)
+        { id: 1, name: 'HGM CYBER TEE - ONYX', type: 'lifestyle', price: 30.00, img: '/images/store/ca-tee-1.png', category: 'tees', isTopSeller: true },
+        { id: 2, name: 'HGM NEON LOGO TEE', type: 'lifestyle', price: 30.00, img: '/images/store/ca-tee-2.png', category: 'tees' },
+        { id: 3, name: 'CLOUDS OVER BAKO TEE', type: 'lifestyle', price: 30.00, img: '/images/store/ca-tee-3.png', category: 'tees' },
+        { id: 4, name: 'AVE HUSTLE TEE - ACID', type: 'lifestyle', price: 35.00, img: '/images/store/ca-tee-4.png', category: 'tees' },
+        
+        // Hats (3 slots)
+        { id: 5, name: 'HGM TRUCKER - CYAN SHINE', type: 'lifestyle', price: 25.00, img: '/images/store/ca-hat-1.png', category: 'hats' },
+        { id: 6, name: 'CLOUD AVE SNAPBACK - PINK', type: 'lifestyle', price: 25.00, img: '/images/store/ca-hat-2.png', category: 'hats' },
+        { id: 7, name: 'HGM DAD HAT - VINTAGE', type: 'lifestyle', price: 20.00, img: '/images/store/ca-hat-3.png', category: 'hats' },
+        
+        // Beanies (1 slot)
+        { id: 8, name: 'AVE WATCH CAP - BLUE', type: 'lifestyle', price: 20.00, img: '/images/store/ca-beanie-1.png', category: 'beanies', isTopSeller: true },
+        
+        // Combos (2 slots)
+        { id: 9, name: 'CYBER TEE + HAT BUNDLE', type: 'lifestyle', price: 50.00, img: '/images/store/ca-combo-1.png', category: 'combos' },
+        { id: 10, name: 'HUSTLE TEE + BEANIE SET', type: 'lifestyle', price: 45.00, img: '/images/store/ca-combo-2.png', category: 'combos' },
+        
+        // Accessories (5 slots)
+        { id: 11, name: 'CLOUD AVE GRINDER - METAL', type: 'lifestyle', price: 15.00, img: '/images/store/ca-acc-1.png', category: 'accessories' },
+        { id: 12, name: 'HGM ROLLING TRAY - NEON', type: 'lifestyle', price: 20.00, img: '/images/store/ca-acc-2.png', category: 'accessories' },
+        { id: 13, name: 'SMELL-PROOF STASH BAG', type: 'lifestyle', price: 25.00, img: '/images/store/ca-acc-3.png', category: 'accessories' },
+        { id: 14, name: 'CLOUD AVE LIGHTER CASE', type: 'lifestyle', price: 10.00, img: '/images/store/ca-acc-4.png', category: 'accessories' },
+        { id: 15, name: 'HGM KEYCHAIN - GLOW', type: 'lifestyle', price: 8.00, img: '/images/store/ca-acc-5.png', category: 'accessories' },
     ],
     vault: [
-        { id: 101, name: 'HGM LEGENDS SERIES (JORDAN, KOBE...)', type: 'vault', price: 45.00, img: '/images/store/ca-menu-flower.png', category: 'flower', isTopSeller: true },
-        { id: 102, name: 'PREMIUM DISPOSABLES (MUHAMMED, TRAP CITY...)', type: 'vault', price: 35.00, img: '/images/store/ca-menu-disposable.png', category: 'disposables' },
-        { id: 103, name: 'LIVE RESIN WAX', type: 'vault', price: 40.00, img: '/images/store/ca-menu-wax.png', category: 'wax' },
-        { id: 104, name: 'GUMMY EDIBLES', type: 'vault', price: 25.00, img: '/images/store/ca-menu-edibles.png', category: 'edibles' },
-        { id: 105, name: 'HGM DESSERT SERIES (ICE CREAM, FRITTER)', type: 'vault', price: 45.00, img: '/images/store/ca-menu-flower.png', category: 'flower' },
+        // Flower (8 spots: 2@$45, 2@$35, 2@$25, 1@$15, 1@$10)
+        { id: 101, name: 'HGM PLATINUM OG (3.5g)', type: 'vault', price: 45.00, img: '/images/store/ca-flower-1.png', category: 'flower', isTopSeller: true },
+        { id: 102, name: 'VALLEY GELATO (3.5g)', type: 'vault', price: 45.00, img: '/images/store/ca-flower-2.png', category: 'flower' },
+        { id: 103, name: 'BAKO BERRY (3.5g)', type: 'vault', price: 35.00, img: '/images/store/ca-flower-3.png', category: 'flower' },
+        { id: 104, name: 'CLOUD CAKE (3.5g)', type: 'vault', price: 35.00, img: '/images/store/ca-flower-4.png', category: 'flower' },
+        { id: 105, name: 'LEMON FUEL (3.5g)', type: 'vault', price: 25.00, img: '/images/store/ca-flower-5.png', category: 'flower' },
+        { id: 106, name: 'SATIVA SUNRISE (3.5g)', type: 'vault', price: 25.00, img: '/images/store/ca-flower-6.png', category: 'flower' },
+        { id: 107, name: 'BUDGET SHAKE (7g)', type: 'vault', price: 15.00, img: '/images/store/ca-flower-7.png', category: 'flower' },
+        { id: 108, name: 'SINGLE PRE-ROLL', type: 'vault', price: 10.00, img: '/images/store/ca-flower-8.png', category: 'flower' },
+        
+        // Wax (8 spots: mix of budgets, mid, premium)
+        { id: 201, name: 'PREMIUM ROSIN - 1g', type: 'vault', price: 120.00, img: '/images/store/ca-wax-1.png', category: 'wax' },
+        { id: 202, name: 'HGM LIVE RESIN - 1g', type: 'vault', price: 60.00, img: '/images/store/ca-wax-2.png', category: 'wax' },
+        { id: 203, name: 'DIAMONDS & SAUCE - 1g', type: 'vault', price: 40.00, img: '/images/store/ca-wax-3.png', category: 'wax' },
+        { id: 204, name: 'BHO SHATTER - 1g', type: 'vault', price: 20.00, img: '/images/store/ca-wax-4.png', category: 'wax' },
+        { id: 205, name: 'BUDGET CRUMBLE - 1g', type: 'vault', price: 10.00, img: '/images/store/ca-wax-5.png', category: 'wax' },
+        { id: 206, name: 'CAVE LIVE SUGAR', type: 'vault', price: 40.00, img: '/images/store/ca-wax-6-8.png', category: 'wax' },
+        { id: 207, name: 'BADOO BADDER', type: 'vault', price: 35.00, img: '/images/store/ca-wax-6-8.png', category: 'wax' },
+        { id: 208, name: 'HGM BULK JAR - 3.5g', type: 'vault', price: 100.00, img: '/images/store/ca-wax-6-8.png', category: 'wax' },
+        
+        // Disposables (8 spots)
+        { id: 301, name: 'MUHA MEDS DISPOSABLE', type: 'vault', price: 30.00, img: '/images/store/ca-disp-1.png', category: 'disposables' },
+        { id: 302, name: 'ACES DISPOSABLE', type: 'vault', price: 30.00, img: '/images/store/ca-disp-2.png', category: 'disposables' },
+        { id: 303, name: 'BOUTIQUE SWITCHES', type: 'vault', price: 35.00, img: '/images/store/ca-disp-3.png', category: 'disposables' },
+        { id: 304, name: 'GENERIC HYBRID VAPE', type: 'vault', price: 25.00, img: '/images/store/ca-disp-4.png', category: 'disposables' },
+        { id: 305, name: 'GENERIC SATIVA VAPE', type: 'vault', price: 25.00, img: '/images/store/ca-disp-5.png', category: 'disposables' },
+        { id: 306, name: 'GENERIC INDICA VAPE', type: 'vault', price: 25.00, img: '/images/store/ca-disp-6.png', category: 'disposables' },
+        { id: 307, name: 'PREMIUM VAPE POD', type: 'vault', price: 45.00, img: '/images/store/ca-disp-7-8.png', category: 'disposables' },
+        { id: 308, name: 'LIVE RESIN DISPO', type: 'vault', price: 50.00, img: '/images/store/ca-disp-7-8.png', category: 'disposables' },
+        
+        // Edibles (8 spots)
+        { id: 401, name: 'HGM GUMMIES - 100mg', type: 'vault', price: 20.00, img: '/images/store/ca-edible-1.png', category: 'edibles' },
+        { id: 402, name: 'CLOUD AVE BROWNIES', type: 'vault', price: 25.00, img: '/images/store/ca-edible-2.png', category: 'edibles' },
+        { id: 403, name: 'SOUR RINGS - 500mg', type: 'vault', price: 35.00, img: '/images/store/ca-edible-3.png', category: 'edibles' },
+        { id: 404, name: 'BAKO BAR - DARK CHOC', type: 'vault', price: 22.00, img: '/images/store/ca-edible-1.png', category: 'edibles' },
+        { id: 405, name: 'NEON PEACH RINGS', type: 'vault', price: 18.00, img: '/images/store/ca-edible-2.png', category: 'edibles' },
+        { id: 406, name: 'CLOUD LIPS GUMMIES', type: 'vault', price: 15.00, img: '/images/store/ca-edible-1.png', category: 'edibles' },
+        { id: 407, name: 'HIGH DOSE SYRUP', type: 'vault', price: 40.00, img: '/images/store/ca-edible-3.png', category: 'edibles' },
+        { id: 408, name: 'INFUSED HONEY STICK', type: 'vault', price: 10.00, img: '/images/store/ca-edible-2.png', category: 'edibles' },
     ]
 };
 
 // --- BACKGROUND ENGINE (The Clouds) ---
 function startParticles() {
+    if (!document.getElementById("tsparticles")) return;
     tsParticles.load("tsparticles", {
         fpsLimit: 60,
         interactivity: {
@@ -188,15 +241,22 @@ function initStore() {
     renderProducts('lifestyle', 'all');
     renderProducts('vault', 'all');
     renderTopSellers();
+    ecommerce.init();
     
     // Main Tab switching
-    document.querySelectorAll('.nav-btn').forEach(btn => {
+    document.querySelectorAll('.nav-btn, .footer-links a').forEach(btn => {
         btn.addEventListener('click', (e) => {
-            const target = btn.dataset.tab;
-            if (!target) return; // external links like IG
+            const target = btn.dataset.tab || btn.getAttribute('href')?.replace('.html', '').replace('/', '');
+            
+            // Check if it's a tab link (not an external link)
+            const possibleTabs = ['hero', 'lifestyle', 'vault', 'about', 'faq', 'contact', 'members', 'cart', 'checkout'];
+            if (!possibleTabs.includes(target)) return;
+
+            e.preventDefault();
             
             if (target === 'cart') {
                 toggleCart(true);
+                ecommerce.showSignupPrompt();
                 return;
             }
             
@@ -234,30 +294,55 @@ function initStore() {
     });
 
     // Age Gate
-    document.getElementById('age-confirm').addEventListener('click', () => {
-        state.isAgeVerified = true;
-        hideAgeGate();
-        switchTab('vault');
-    });
+    const ageConfirm = document.getElementById('age-confirm');
+    const ageDeny = document.getElementById('age-deny');
+    if (ageConfirm) {
+        ageConfirm.addEventListener('click', () => {
+            state.isAgeVerified = true;
+            hideAgeGate();
+            switchTab('vault');
+        });
+    }
 
-    document.getElementById('age-deny').addEventListener('click', () => {
-        window.location.href = 'https://google.com';
-    });
+    if (ageDeny) {
+        ageDeny.addEventListener('click', () => {
+            window.location.href = 'https://google.com';
+        });
+    }
 
     // Splash Screen Entry
-    document.getElementById('enter-site-btn').addEventListener('click', () => {
-        document.getElementById('splash-screen').classList.add('hidden');
-        document.getElementById('app').classList.remove('hidden');
-        
-        // Start background visual only when entered for performance
-        startParticles();
-    });
+    const enterBtn = document.getElementById('enter-site-btn');
+    if (enterBtn) {
+        enterBtn.addEventListener('click', () => {
+            document.getElementById('splash-screen').classList.add('hidden');
+            document.getElementById('app').classList.remove('hidden');
+        });
+    }
 
     // Cart events
-    document.getElementById('close-cart').addEventListener('click', () => toggleCart(false));
+    const closeCartBtn = document.getElementById('close-cart');
+    if (closeCartBtn) {
+        closeCartBtn.addEventListener('click', () => toggleCart(false));
+    }
+    
+    const checkoutBtn = document.getElementById('checkout-btn');
+    if (checkoutBtn) {
+        checkoutBtn.addEventListener('click', () => {
+            toggleCart(false);
+            switchTab('checkout');
+        });
+    }
+    
+    // Static Cart Handler (for about/faq/contact pages)
+    const openCartStatic = document.getElementById('open-cart-static');
+    if (openCartStatic) {
+        openCartStatic.addEventListener('click', () => toggleCart(true));
+    }
 }
 
 function switchTab(tabId) {
+    if (tabId === 'cart') return; // Handled separately
+    
     state.activeTab = tabId;
     document.querySelectorAll('.tab-content').forEach(section => {
         if (section.id === tabId) {
@@ -273,12 +358,31 @@ function switchTab(tabId) {
 
     // Update nav buttons visually
     document.querySelectorAll('.nav-btn').forEach(btn => {
-        if (btn.dataset.tab === tabId && tabId !== 'cart') {
+        if (btn.dataset.tab === tabId) {
             btn.classList.add('active');
         } else {
             btn.classList.remove('active');
         }
     });
+
+    if (tabId === 'checkout') {
+        updateCheckoutUI();
+    }
+}
+
+function updateCheckoutUI() {
+    const container = document.getElementById('checkout-items');
+    if (!container) return;
+    
+    container.innerHTML = state.cart.map(item => `
+        <div class="checkout-item">
+            <span>${item.name}</span>
+            <span>$${item.price.toFixed(2)}</span>
+        </div>
+    `).join('');
+    
+    const total = state.cart.reduce((sum, item) => sum + item.price, 0);
+    document.getElementById('checkout-total').innerText = `$${total.toFixed(2)}`;
 }
 
 function showAgeGate() {
@@ -328,6 +432,9 @@ function updateCartUI() {
 
     const total = state.cart.reduce((sum, item) => sum + item.price, 0);
     document.getElementById('cart-total').innerText = `TOTAL: $${total.toFixed(2)}`;
+    
+    // Check if user is logged in, if not show prompt
+    ecommerce.showSignupPrompt();
 }
 
 window.removeFromCart = (index) => {
@@ -367,36 +474,35 @@ function initEliteInteractions() {
         });
     });
 
-    // 2. Velocity-Linked Marquee Physics
+    // 2. Velocity-Linked Marquee Physics - FIXED & SLOWED
     const marquee = document.querySelector('.marquee-track');
     if (marquee) {
         marquee.style.animation = 'none'; // disable raw CSS anim
         
-        let direction = -1; // -1 = Left (Forward), 1 = Right (Reverse)
         let marqueeTween = gsap.to(marquee, {
-            xPercent: direction * 50,
+            xPercent: -50, // Move 50% left to loop
             repeat: -1,
-            duration: 20,
+            duration: 40, // SLOWER (was 20)
             ease: "none"
-        }).timeScale(1);
+        }).timeScale(-1); // Reverse to move Left-to-Right
 
         let lastScrollTop = 0;
         window.addEventListener('scroll', () => {
             let st = window.pageYOffset || document.documentElement.scrollTop;
             if (st > lastScrollTop) {
-                // downscroll -> fast forward
-                gsap.to(marqueeTween, { timeScale: 2.5, duration: 0.3 });
+                // downscroll -> slightly speed up
+                gsap.to(marqueeTween, { timeScale: -1.5, duration: 0.5 });
             } else if (st < lastScrollTop) {
-                // upscroll -> reverse direction!
-                gsap.to(marqueeTween, { timeScale: -2.5, duration: 0.3 });
+                // upscroll -> keep direction, maybe just slight jitter fix
+                gsap.to(marqueeTween, { timeScale: -1, duration: 0.5 });
             }
             lastScrollTop = st <= 0 ? 0 : st;
             
             // Decelerate back to normal idle slowly
             clearTimeout(window.marqueeTimeout);
             window.marqueeTimeout = setTimeout(() => {
-                gsap.to(marqueeTween, { timeScale: direction, duration: 0.8, ease: "power2.out" });
-            }, 100);
+                gsap.to(marqueeTween, { timeScale: -1, duration: 1.2, ease: "power2.out" });
+            }, 150);
         });
     }
 

@@ -46,7 +46,8 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=JetBrains+Mono:wght@400;700&family=Libre+Barcode+39&display=swap" rel="stylesheet">
+    <script src="https://sandbox.web.squarecdn.com/v1/payments.js"></script>
     <link rel="stylesheet" href="/style.css">
 </head>
 <body class="loading">
@@ -66,12 +67,15 @@
                 <div class="nav-links">
                     <button class="nav-btn" data-tab="lifestyle">LIFESTYLE</button>
                     <button class="nav-btn" data-tab="vault">THE VAULT</button>
+                    <button class="nav-btn" data-tab="about">ABOUT</button>
                 </div>
                 <div class="logo-container" style="cursor: pointer;" class="nav-btn active" data-tab="hero">
                     <img src="/logo1.png" alt="Cloud Ave Logo" id="nav-logo">
                 </div>
                 <div class="nav-links">
-                    <a href="https://www.instagram.com/clouds.backupp/" target="_blank" class="nav-btn social-link">IG</a>
+                    <button class="nav-btn" data-tab="faq">FAQ</button>
+                    <button class="nav-btn" data-tab="contact">CONTACT</button>
+                    <button class="nav-btn" data-tab="members">MEMBERS</button>
                     <button class="nav-btn" data-tab="cart">CART (<span id="cart-count">0</span>)</button>
                 </div>
             </nav>
@@ -258,6 +262,169 @@
                 </div>
                 <!-- Items will be injected here -->
                 <div class="store-grid" id="vault-grid"></div>
+            </section>
+
+            <!-- About Section -->
+            <section id="about" class="tab-content">
+                <div class="section-header glass">
+                    <img src="/logo1.png" alt="Icon" class="section-icon">
+                    <h1>ABOUT CLOUD AVE</h1>
+                </div>
+                <div class="about-content glass">
+                    <div class="about-hero">
+                        <p class="tagline">BAKERSFIELD · KERN COUNTY · ALL ON DA MUSCLE</p>
+                        <h2>Roots</h2>
+                        <p>Cloud Ave grew out of Bakersfield: cannabis-first discipline, then apparel as an extension of the same name and energy. The goal has always been direct relationships, real inventory, and zero corporate theater.</p>
+                        
+                        <h2>Two sides, one brand</h2>
+                        <p><strong>Lifestyle</strong> is premium tees, hats, beanies, and combos—built to ship across the U.S. <strong>The Vault</strong> is the 21+ local menu for Kern County: pickup and delivery coordination only, with valid ID at fulfillment. Cannabis is never shipped by mail.</p>
+                        
+                        <h2>Community</h2>
+                        <p>We rep the city that built us. Every drop and every local interaction is meant to feel loud, clean, and personal—whether you’re pulling up in Bakersfield or repping the ave from another state.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FAQ Section -->
+            <section id="faq" class="tab-content">
+                <div class="section-header glass">
+                    <img src="/logo1.png" alt="Icon" class="section-icon">
+                    <h1>FREQUENTLY ASKED QUESTIONS</h1>
+                </div>
+                <div class="faq-content glass">
+                    <div class="faq-group">
+                        <h3>General</h3>
+                        <p><strong>What is Cloud Ave?</strong><br>Cloud Ave is a Bakersfield-rooted brand: premium streetwear and accessories that ship nationwide, plus a separate 21+ local menu (The Vault) for Kern County pickup and delivery coordination only.</p>
+                        <p><strong>How do I reach you?</strong><br>DM <a href="https://www.instagram.com/clouds.backupp/" target="_blank" rel="noopener noreferrer">Instagram</a> or use the Contact tab. A phone number will be posted when it’s set.</p>
+                    </div>
+                    <div class="faq-group">
+                        <h3>Lifestyle (apparel)</h3>
+                        <p><strong>Do you ship apparel outside Bakersfield?</strong><br>Yes. Lifestyle items are built for nationwide shipping where permitted. Checkout and carriers are described at order time.</p>
+                    </div>
+                    <div class="faq-group">
+                        <h3>The Vault (local menu)</h3>
+                        <p><strong>Do you ship cannabis?</strong><br>No. Cannabis products are never shipped by mail or common carriers. Fulfillment is local pickup or local delivery coordination for qualified customers, with valid ID at fulfillment.</p>
+                        <p><strong>Who can access The Vault?</strong><br>You must be 21+ and meet local requirements (e.g., Kern County). ID is verified at fulfillment.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="tab-content">
+                <div class="section-header glass">
+                    <img src="/logo1.png" alt="Icon" class="section-icon">
+                    <h1>CONTACT</h1>
+                </div>
+                <div class="contact-content glass">
+                    <div class="contact-methods">
+                        <div class="method-card">
+                            <h3>Instagram</h3>
+                            <a href="https://www.instagram.com/clouds.backupp/" target="_blank" class="nav-btn">@clouds.backupp</a>
+                        </div>
+                        <div class="method-card">
+                            <h3>Service Area</h3>
+                            <p><strong>Lifestyle:</strong> Nationwide (U.S.)<br><strong>The Vault:</strong> Bakersfield (21+)</p>
+                        </div>
+                    </div>
+                    <div id="contact-form-container" class="contact-funnel">
+                        <!-- Contact form will be mirrored here or simplified -->
+                        <form id="main-contact-form">
+                            <input type="text" placeholder="Name" required>
+                            <input type="email" placeholder="Email" required>
+                            <textarea placeholder="Your Message" rows="5" required></textarea>
+                            <button type="submit" class="cta-btn">SEND MESSAGE</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Members Section -->
+            <section id="members" class="tab-content">
+                <div class="section-header glass">
+                    <img src="/logo1.png" alt="Icon" class="section-icon">
+                    <h1>MEMBERS CLUB</h1>
+                </div>
+                <div class="members-container glass">
+                    <div id="auth-ui">
+                        <div class="auth-box">
+                            <h2>Join the Inner Circle</h2>
+                            <p>Get exclusive drops, early access to The Vault, and earn loyalty rewards.</p>
+                            <button id="google-signup" class="cta-btn google-btn">
+                                <img src="/google-icon.svg" alt="" class="btn-icon"> SIGN UP WITH GOOGLE
+                            </button>
+                            <div class="divider"><span>OR</span></div>
+                            <form id="email-signup">
+                                <div class="name-row">
+                                    <input type="text" id="member-first-name" placeholder="First Name" required>
+                                    <input type="text" id="member-last-name" placeholder="Last Name" required>
+                                </div>
+                                <input type="email" id="member-email" placeholder="Email Address" required>
+                                <input type="tel" id="member-phone" placeholder="Phone Number" required>
+                                <button type="submit" class="cta-btn">CREATE ACCOUNT</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div id="member-profile" class="hidden">
+                        <div class="profile-header">
+                            <h2>Welcome back, <span id="user-display-name">Cloud User</span>!</h2>
+                            <button id="logout-btn" class="nav-btn">LOGOUT</button>
+                        </div>
+                        <div class="loyalty-card-container">
+                            <div class="loyalty-card Cyberpunk">
+                                <div class="card-glow"></div>
+                                <div class="card-content">
+                                    <img src="/logo1.png" alt="Cloud Ave" class="card-logo">
+                                    <div class="card-info">
+                                        <span class="card-label">MEMBER STATUS</span>
+                                        <span class="card-value">ELITE</span>
+                                    </div>
+                                    <div class="card-barcode">|||||||||||||||||||||||</div>
+                                    <div class="card-holder">
+                                        <span id="card-user-name">LOADING...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Checkout Section -->
+            <section id="checkout" class="tab-content">
+                <div class="section-header glass">
+                    <img src="/logo1.png" alt="Icon" class="section-icon">
+                    <h1>CHECKOUT</h1>
+                </div>
+                <div class="checkout-grid">
+                    <div class="checkout-form glass">
+                        <h2>Shipping & Contact</h2>
+                        <form id="checkout-form">
+                            <div class="name-row">
+                                <input type="text" placeholder="First Name" required>
+                                <input type="text" placeholder="Last Name" required>
+                            </div>
+                            <input type="email" placeholder="Email" required>
+                            <input type="tel" placeholder="Phone Number" required>
+                            <input type="text" placeholder="Address" required>
+                            <div class="name-row">
+                                <input type="text" placeholder="City" required>
+                                <input type="text" placeholder="Zip Code" required>
+                            </div>
+                            
+                            <h2>Payment</h2>
+                            <div id="sq-card-container"></div>
+                            <button id="sq-purchase" class="cta-btn">COMPLETE PURCHASE</button>
+                        </form>
+                    </div>
+                    <div class="order-summary glass">
+                        <h2>Summary</h2>
+                        <div id="checkout-items"></div>
+                        <div class="summary-total">
+                            <span>TOTAL</span>
+                            <span id="checkout-total">$0.00</span>
+                        </div>
+                    </div>
+                </div>
             </section>
         </main>
 
