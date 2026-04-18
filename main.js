@@ -1,5 +1,8 @@
 import * as PIXI from 'pixi.js';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 // State
 const state = {
@@ -348,6 +351,108 @@ function initCookieBanner() {
     });
 }
 
+function initEliteInteractions() {
+    // 1. ScrollTrigger Physics for Core Sections
+    gsap.utils.toArray('.wow-card, .how-step, .hero-stat, .info-card, .status-box').forEach(el => {
+        gsap.from(el, {
+            scrollTrigger: {
+                trigger: el,
+                start: "top 85%",
+                toggleActions: "play none none reverse"
+            },
+            y: 50,
+            opacity: 0,
+            duration: 0.6,
+            ease: "back.out(1.2)"
+        });
+    });
+
+    // 2. Velocity-Linked Marquee Physics
+    const marquee = document.querySelector('.marquee-track');
+    if (marquee) {
+        marquee.style.animation = 'none'; // disable raw CSS anim
+        
+        let direction = -1; // -1 = Left (Forward), 1 = Right (Reverse)
+        let marqueeTween = gsap.to(marquee, {
+            xPercent: direction * 50,
+            repeat: -1,
+            duration: 20,
+            ease: "none"
+        }).timeScale(1);
+
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', () => {
+            let st = window.pageYOffset || document.documentElement.scrollTop;
+            if (st > lastScrollTop) {
+                // downscroll -> fast forward
+                gsap.to(marqueeTween, { timeScale: 2.5, duration: 0.3 });
+            } else if (st < lastScrollTop) {
+                // upscroll -> reverse direction!
+                gsap.to(marqueeTween, { timeScale: -2.5, duration: 0.3 });
+            }
+            lastScrollTop = st <= 0 ? 0 : st;
+            
+            // Decelerate back to normal idle slowly
+            clearTimeout(window.marqueeTimeout);
+            window.marqueeTimeout = setTimeout(() => {
+                gsap.to(marqueeTween, { timeScale: direction, duration: 0.8, ease: "power2.out" });
+            }, 100);
+        });
+    }
+
+    // 3. Magnetic Magnetic Buttons Experience
+    document.querySelectorAll('.nav-btn, .gate-btn, .cta-btn').forEach(btn => {
+        btn.addEventListener('mousemove', (e) => {
+            const rect = btn.getBoundingClientRect();
+            // Calculate distance from center of button
+            const x = (e.clientX - rect.left) - rect.width / 2;
+            const y = (e.clientY - rect.top) - rect.height / 2;
+            
+            // Pull the button slightly towards cursor
+            gsap.to(btn, {
+                x: x * 0.25,
+                y: y * 0.25,
+                duration: 0.4,
+                ease: "power2.out"
+            });
+        });
+        
+        // Snap back when leaving
+        btn.addEventListener('mouseleave', () => {
+            gsap.to(btn, {
+                x: 0,
+                y: 0,
+                duration: 0.7,
+                ease: "elastic.out(1, 0.3)"
+            });
+        });
+    });
+    
+    // 4. Seamless Page Load Transitions (No Blank White Skips)
+    // Enter Sequence
+    gsap.fromTo('#app', { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', clearProps: 'all' });
+    
+    // Intercept clicks to internal routing
+    document.querySelectorAll('a').forEach(a => {
+        if(a.hostname === window.location.hostname && !a.href.includes('#') && a.target !== '_blank') {
+            a.addEventListener('click', (e) => {
+                e.preventDefault();
+                const destination = a.href;
+                gsap.to('#app', {
+                    opacity: 0,
+                    y: -15,
+                    duration: 0.35,
+                    ease: 'power2.in',
+                    onComplete: () => {
+                        window.location.href = destination;
+                    }
+                });
+            });
+        }
+    });
+}
+
 // Initialize
 initStore();
 initCookieBanner();
+initEliteInteractions();

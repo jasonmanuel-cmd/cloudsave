@@ -1421,3 +1421,164 @@ main {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
 }
+
+/* Contact funnel (static site → Next /api/contact) */
+.contact-api-banner {
+    font-size: 0.9rem;
+    padding: 14px 16px;
+    border-radius: 10px;
+    border: 2px solid var(--primary-yellow);
+    background: rgba(0, 0, 0, 0.45);
+    margin: 20px 0;
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.contact-api-banner code {
+    font-size: 0.85em;
+    color: var(--cyan);
+}
+
+.contact-funnel {
+    margin-top: 28px;
+    padding: 24px 20px 32px;
+    border-radius: 16px;
+    border: var(--border-thick);
+    background: rgba(6, 4, 12, 0.65);
+    box-shadow: var(--shadow-hard);
+}
+
+.contact-funnel-title {
+    font-family: var(--font-bubbly);
+    color: var(--primary-yellow);
+    margin: 0 0 8px;
+    text-transform: uppercase;
+    -webkit-text-stroke: 1px #000;
+}
+
+.contact-funnel-sub {
+    margin: 0 0 20px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.95rem;
+}
+
+.contact-funnel-progress {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 24px;
+}
+
+.contact-funnel-dot {
+    flex: 1;
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.contact-funnel-dot.active {
+    background: var(--acid-green);
+}
+
+.contact-funnel-step h3 {
+    font-family: var(--font-bubbly);
+    color: var(--acid-green);
+    margin: 0 0 10px;
+    font-size: 1.15rem;
+}
+
+.contact-funnel-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+@media (min-width: 520px) {
+    .contact-funnel-options {
+        flex-direction: row;
+    }
+}
+
+.contact-funnel-btn {
+    flex: 1;
+    cursor: pointer;
+    font-family: var(--font-bubbly);
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 14px 18px;
+    border: var(--border-thick);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--pure-white);
+    box-shadow: 4px 4px 0 #000;
+    transition: transform 0.12s ease, background 0.12s ease;
+}
+
+.contact-funnel-btn:hover {
+    transform: translate(-2px, -2px);
+}
+
+.contact-funnel-btn.primary {
+    background: var(--primary-yellow);
+    color: #000;
+}
+
+.contact-funnel-back {
+    margin-top: 18px;
+    background: transparent;
+    border: none;
+    color: var(--cyan);
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 0.95rem;
+}
+
+.contact-funnel-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.contact-funnel-field input,
+.contact-funnel-field textarea {
+    font: inherit;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: var(--border-thick);
+    background: rgba(255, 255, 255, 0.95);
+    color: #111;
+}
+
+.contact-funnel-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.contact-funnel-status[data-kind='error'] {
+    color: #ffb4c8;
+    font-weight: 600;
+}
+
+.contact-funnel-success {
+    margin-top: 24px;
+    padding: 24px;
+    border-radius: 16px;
+    border: 2px solid var(--acid-green);
+    background: rgba(0, 40, 20, 0.35);
+}
+
+.contact-funnel-success h2 {
+    font-family: var(--font-bubbly);
+    color: var(--acid-green);
+    margin-top: 0;
+}

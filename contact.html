@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact | Cloud Ave — Bakersfield</title>
-    <meta name="description" content="Contact Cloud Ave for apparel orders, local Vault questions, or partnerships. Phone and Instagram.">
+    <meta name="description" content="Contact Cloud Ave for apparel orders, local Vault questions, or partnerships. Instagram and secure form.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
@@ -34,7 +34,69 @@
         <p>Check the <a href="/faq.html">FAQ</a> for shipping, returns, and Vault rules. Legal terms are in <a href="/terms.html">Terms</a> and <a href="/privacy.html">Privacy</a>.</p>
 
         <h2>Partner / business</h2>
-        <p>For wholesale or collaboration inquiries, reach out by phone or IG with details; include your business name and intent.</p>
+        <p>For wholesale or collaboration inquiries, use the form below or IG with details; include your business name and intent.</p>
+
+        <p id="contact-api-missing" class="contact-api-banner" hidden>
+            <strong>Form not wired in this build.</strong> Set <code>VITE_CONTACT_API_URL</code> to your Next.js site origin (example: <code>https://clouds-ave.com</code>) and redeploy, or message us on Instagram.
+        </p>
+
+        <div id="funnel-success" class="contact-funnel-success" hidden>
+            <h2>Message received</h2>
+            <p>We will reply by email. If you need something urgent, use Instagram.</p>
+            <button type="button" class="contact-funnel-btn primary" id="funnel-reset">Send another message</button>
+        </div>
+
+        <div id="contact-funnel-root" class="contact-funnel">
+            <h2 class="contact-funnel-title">Growth protocol</h2>
+            <p class="contact-funnel-sub">Three quick steps — same routing as the main site.</p>
+            <div class="contact-funnel-progress" aria-hidden="true">
+                <span class="contact-funnel-dot active" id="funnel-dot-1"></span>
+                <span class="contact-funnel-dot" id="funnel-dot-2"></span>
+                <span class="contact-funnel-dot" id="funnel-dot-3"></span>
+            </div>
+
+            <div id="funnel-step-1" class="contact-funnel-step">
+                <h3>Step 1 · Intent</h3>
+                <p>Customer support or business opportunity?</p>
+                <div class="contact-funnel-options">
+                    <button type="button" class="contact-funnel-btn primary" id="pick-customer">Customer</button>
+                    <button type="button" class="contact-funnel-btn" id="pick-business">Business / collab</button>
+                </div>
+            </div>
+
+            <div id="funnel-step-2" class="contact-funnel-step" hidden>
+                <h3>Step 2 · Topic</h3>
+                <p>What is this about?</p>
+                <div class="contact-funnel-options">
+                    <button type="button" class="contact-funnel-btn primary" id="pick-store">Store / reservation</button>
+                    <button type="button" class="contact-funnel-btn" id="pick-bizcat">Business / wholesale</button>
+                </div>
+                <button type="button" class="contact-funnel-back" id="funnel-back-2">← Back</button>
+            </div>
+
+            <div id="funnel-step-3" class="contact-funnel-step" hidden>
+                <h3>Step 3 · Your details</h3>
+                <form id="contact-funnel-form" novalidate>
+                    <label class="contact-funnel-field">
+                        <span>Name</span>
+                        <input id="field-name" name="name" type="text" required autocomplete="name" />
+                    </label>
+                    <label class="contact-funnel-field">
+                        <span>Email</span>
+                        <input id="field-email" name="email" type="email" required autocomplete="email" />
+                    </label>
+                    <label class="contact-funnel-field">
+                        <span>Message</span>
+                        <textarea id="field-message" name="message" required rows="5"></textarea>
+                    </label>
+                    <p id="funnel-status" class="contact-funnel-status" hidden role="status"></p>
+                    <div class="contact-funnel-actions">
+                        <button type="button" class="contact-funnel-back" id="funnel-back-3">← Back</button>
+                        <button type="submit" class="contact-funnel-btn primary" id="funnel-submit">Send</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </article>
 
     <footer class="main-footer" style="margin-top: 40px;">
@@ -48,5 +110,7 @@
         </nav>
         <p>ran by <a href="https://coaibakersfield.com" target="_blank" rel="noopener noreferrer">COAIBAKERSFIELD.COM</a></p>
     </footer>
+    <!-- Set VITE_CONTACT_API_URL at build time to your Next.js origin (e.g. https://clouds-ave.com). Add that origin to CONTACT_ALLOWED_ORIGINS on the API. -->
+    <script type="module" src="/contact-page.js"></script>
 </body>
 </html>
