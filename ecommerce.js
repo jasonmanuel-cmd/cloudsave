@@ -40,6 +40,7 @@ function getMemberDisplayName(user) {
 // Square Configuration
 const appId = import.meta.env.VITE_SQUARE_APP_ID || '';
 const locationId = import.meta.env.VITE_SQUARE_LOCATION_ID || '';
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export const ecommerce = {
     user: null,
@@ -80,7 +81,7 @@ export const ecommerce = {
 
     async signUpWithGoogle() {
         if (!supabase) {
-            alert('Member signup is temporarily unavailable.');
+            alert('Member signup is currently unavailable. Please try again later.');
             return;
         }
 
@@ -95,7 +96,7 @@ export const ecommerce = {
 
     async signUpWithEmail() {
         if (!supabase) {
-            alert('Member signup is temporarily unavailable.');
+            alert('Member signup is currently unavailable. Please try again later.');
             return;
         }
 
@@ -105,6 +106,11 @@ export const ecommerce = {
         const phone = getFieldValue('#member-phone');
 
         if (!email) {
+            alert('Please enter an email address.');
+            return;
+        }
+
+        if (!EMAIL_PATTERN.test(email)) {
             alert('Please enter a valid email address.');
             return;
         }
