@@ -18,6 +18,10 @@ function getAuthElements() {
     };
 }
 
+function getFieldValue(selector) {
+    return document.querySelector(selector)?.value?.trim() || '';
+}
+
 // Square Configuration
 const appId = import.meta.env.VITE_SQUARE_APP_ID || '';
 const locationId = import.meta.env.VITE_SQUARE_LOCATION_ID || '';
@@ -80,12 +84,10 @@ export const ecommerce = {
             return;
         }
 
-        const firstName = document.getElementById('member-first-name')?.value?.trim() || '';
-        const lastName = document.getElementById('member-last-name')?.value?.trim() || '';
-        const email = document.getElementById('member-email')?.value?.trim()
-            || document.querySelector('#email-login input[type="email"]')?.value?.trim()
-            || '';
-        const phone = document.getElementById('member-phone')?.value?.trim() || '';
+        const firstName = getFieldValue('#member-first-name');
+        const lastName = getFieldValue('#member-last-name');
+        const email = getFieldValue('#member-email') || getFieldValue('#email-login input[type="email"]');
+        const phone = getFieldValue('#member-phone');
 
         if (!email) {
             alert('Please enter a valid email address.');
@@ -128,7 +130,7 @@ export const ecommerce = {
             profileContainer?.classList.remove('hidden');
             const metadata = this.user.user_metadata || {};
             const fullName = metadata.full_name || `${metadata.first_name || ''} ${metadata.last_name || ''}`.trim();
-            const name = fullName || this.user.email || 'Cloud User';
+            const name = fullName || this.user.email || 'Member';
             if (userDisplayName) userDisplayName.innerText = name;
             if (cardUserName) cardUserName.innerText = name;
         } else {
