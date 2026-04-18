@@ -9,9 +9,38 @@ try {
     console.warn('Supabase initialization failed. Auth features may be disabled.', e);
 }
 
+function getAuthElements() {
+    return {
+        authContainer: document.getElementById('auth-ui') || document.getElementById('auth-container'),
+        profileContainer: document.getElementById('member-profile'),
+        userDisplayName: document.getElementById('user-display-name') || document.getElementById('member-name'),
+        cardUserName: document.getElementById('card-user-name')
+    };
+}
+
+function getFieldValue(selectors) {
+    const selectorList = Array.isArray(selectors) ? selectors : [selectors];
+    for (const selector of selectorList) {
+        const value = document.querySelector(selector)?.value?.trim();
+        if (value) return value;
+    }
+    return '';
+}
+
+function getMemberDisplayName(user) {
+    const metadata = user?.user_metadata || {};
+    if (metadata.full_name) return metadata.full_name;
+
+    const firstName = metadata.first_name || '';
+    const lastName = metadata.last_name || '';
+    const combinedName = `${firstName} ${lastName}`.trim();
+    return combinedName || user?.email || 'Member';
+}
+
 // Square Configuration
 const appId = import.meta.env.VITE_SQUARE_APP_ID || '';
 const locationId = import.meta.env.VITE_SQUARE_LOCATION_ID || '';
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export const ecommerce = {
     user: null,
@@ -31,12 +60,12 @@ export const ecommerce = {
     },
 
     setupAuthListeners() {
-        const googleBtn = document.getElementById('google-signup');
+        const googleBtn = document.getElementById('google-signup') || document.getElementById('google-login');
         if (googleBtn) {
             googleBtn.addEventListener('click', () => this.signUpWithGoogle());
         }
 
-        const emailForm = document.getElementById('email-signup');
+        const emailForm = document.getElementById('email-signup') || document.getElementById('email-login');
         if (emailForm) {
             emailForm.addEventListener('submit', (e) => {
                 e.preventDefault();
@@ -51,6 +80,11 @@ export const ecommerce = {
     },
 
     async signUpWithGoogle() {
+        if (!supabase) {
+            alert('Member signup is currently unavailable. Please try again later.');
+            return;
+        }
+
         const { error } = await supabase.auth.signInWithOAuth({
             provider: 'google',
             options: {
@@ -61,10 +95,25 @@ export const ecommerce = {
     },
 
     async signUpWithEmail() {
-        const firstName = document.getElementById('member-first-name').value;
-        const lastName = document.getElementById('member-last-name').value;
-        const email = document.getElementById('member-email').value;
-        const phone = document.getElementById('member-phone').value;
+        if (!supabase) {
+            alert('Member signup is currently unavailable. Please try again later.');
+            return;
+        }
+
+        const firstName = getFieldValue('#member-first-name');
+        const lastName = getFieldValue('#member-last-name');
+        const email = getFieldValue(['#member-email', '#email-login input[type="email"]']);
+        const phone = getFieldValue('#member-phone');
+
+        if (!email) {
+            alert('Please enter an email address.');
+            return;
+        }
+
+        if (!EMAIL_REGEX.test(email)) {
+            alert('Please enter a valid email address.');
+            return;
+        }
 
         const { data, error } = await supabase.auth.signUp({
             email,
@@ -88,26 +137,24 @@ export const ecommerce = {
     },
 
     async signOut() {
+        if (!supabase) return;
         await supabase.auth.signOut();
         this.user = null;
         this.updateProfileUI();
     },
 
     updateProfileUI() {
-        const authUI = document.getElementById('auth-ui');
-        const profileUI = document.getElementById('member-profile');
-        const userDisplayName = document.getElementById('user-display-name');
-        const cardUserName = document.getElementById('card-user-name');
+        const { authContainer, profileContainer, userDisplayName, cardUserName } = getAuthElements();
 
         if (this.user) {
-            authUI?.classList.add('hidden');
-            profileUI?.classList.remove('hidden');
-            const name = this.user.user_metadata.full_name || `${this.user.user_metadata.first_name} ${this.user.user_metadata.last_name}`;
+            authContainer?.classList.add('hidden');
+            profileContainer?.classList.remove('hidden');
+            const name = getMemberDisplayName(this.user);
             if (userDisplayName) userDisplayName.innerText = name;
             if (cardUserName) cardUserName.innerText = name;
         } else {
-            authUI?.classList.remove('hidden');
-            profileUI?.classList.add('hidden');
+            authContainer?.classList.remove('hidden');
+            profileContainer?.classList.add('hidden');
         }
     },
 
